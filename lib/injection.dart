@@ -15,27 +15,22 @@ final inject = GetIt.instance;
 setup() async {
   try {
     // env
-    print("Setting up env...");
     await dotenv.load(fileName: ".env");
 
     // service
-    print("Setting up service...");
     inject.registerSingleton<DioProvider>(DioProvider());
 
     // data source
-    print("Setting up data source...");
     inject.registerLazySingleton<AuthRemoteDataSource>(
       () => AuthRemoteDataSourceImpl(),
     );
 
     // repository
-    print("Setting up repo...");
     inject.registerLazySingleton<AuthRepository>(
       () => AuthRepositoryImpl(inject()),
     );
 
     // use case
-    print("Setting up use case...");
     inject.registerLazySingleton(
       () => RegisterUserUseCase(inject()),
     );
@@ -44,7 +39,6 @@ setup() async {
     );
 
     // bloc
-    print("Setting up bloc...");
     inject.registerFactory(
       () => RegisterScreenBloc(
         registerUserUseCase: inject(),
@@ -57,6 +51,6 @@ setup() async {
       ),
     );
   } catch (e) {
-    print("Error setup: $e");
+    print("Injection error: $e");
   }
 }
