@@ -5,7 +5,7 @@ abstract class AuthRemoteDataSource {
     RegisterUserParams params,
   );
 
-  // Future<List<>> loginUser();
-
-  // Future<List<>> logoutUser();
+  Future<Map<String, dynamic>> loginUserRemote(
+    LoginUserParams params,
+  );
 }

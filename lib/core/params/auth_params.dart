@@ -11,3 +11,13 @@ class RegisterUserParams {
     required this.passwordConfirm,
   });
 }
+
+class LoginUserParams {
+  String email;
+  String password;
+
+  LoginUserParams({
+    required this.email,
+    required this.password,
+  });
+}

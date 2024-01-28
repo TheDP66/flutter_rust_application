@@ -5,11 +5,13 @@ import 'package:InOut/core/widgets/text_field_form.dart';
 import 'package:InOut/presentation/bloc/register_screen/register_screen_bloc.dart';
 import 'package:InOut/presentation/bloc/register_screen/register_screen_event.dart';
 import 'package:InOut/presentation/bloc/register_screen/register_screen_state.dart';
+import 'package:InOut/presentation/pages/dashboard_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class RegisterForm extends StatelessWidget {
+class RegisterForm extends StatefulWidget {
   const RegisterForm({
     super.key,
     required GlobalKey<FormState> formKey,
@@ -26,9 +28,26 @@ class RegisterForm extends StatelessWidget {
   final TextEditingController passwordConfirmController;
 
   @override
+  State<RegisterForm> createState() => _RegisterFormState();
+}
+
+class _RegisterFormState extends State<RegisterForm> {
+  late SharedPreferences prefs;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializePrefs();
+  }
+
+  Future<void> _initializePrefs() async {
+    prefs = await SharedPreferences.getInstance();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Form(
-      key: _formKey,
+      key: widget._formKey,
       child: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 12,
@@ -52,7 +71,7 @@ class RegisterForm extends StatelessWidget {
                         }
                         return null;
                       },
-                      controller: emailController,
+                      controller: widget.emailController,
                     ),
                     TextFieldForm(
                       title: "Name",
@@ -65,7 +84,7 @@ class RegisterForm extends StatelessWidget {
                         }
                         return null;
                       },
-                      controller: nameController,
+                      controller: widget.nameController,
                     ),
                     TextFieldForm(
                       title: "Password",
@@ -78,7 +97,7 @@ class RegisterForm extends StatelessWidget {
                         }
                         return null;
                       },
-                      controller: passwordController,
+                      controller: widget.passwordController,
                       obscureText: true,
                     ),
                     TextFieldForm(
@@ -87,12 +106,12 @@ class RegisterForm extends StatelessWidget {
                         if (val == null || val.isEmpty) {
                           return 'Field is required!';
                         }
-                        if (val != passwordController.text) {
-                          return "Password does'nt match";
+                        if (val != widget.passwordController.text) {
+                          return "Password doesn't match";
                         }
                         return null;
                       },
-                      controller: passwordConfirmController,
+                      controller: widget.passwordConfirmController,
                       obscureText: true,
                     ),
                   ],
@@ -113,8 +132,6 @@ class RegisterForm extends StatelessWidget {
                 }
 
                 if (state is RegisterUserError) {
-                  print("present register error: ${state.message}");
-
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
@@ -127,12 +144,31 @@ class RegisterForm extends StatelessWidget {
                 }
 
                 if (state is RegisterUserLoaded) {
+                  BlocProvider.of<RegisterScreenBloc>(context).add(
+                    FetchLoginUser(
+                      LoginUserParams(
+                        email: state.user.email!,
+                        password: widget.passwordController.text,
+                      ),
+                    ),
+                  );
+
+                  return ButtonFullWidth(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blueAccent,
+                    ),
+                    child: const CupertinoActivityIndicator(
+                      color: Colors.white,
+                    ),
+                  );
+                }
+
+                if (state is RegisterUserLoginLoaded) {
+                  prefs.setString("token", state.token.token!);
                   WidgetsBinding.instance.addPostFrameCallback((_) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        behavior: SnackBarBehavior.floating,
-                        margin: const EdgeInsets.all(20),
-                        content: Text(state.user.name ?? "null"),
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => const DashboardScreen(),
                       ),
                     );
                   });
@@ -140,14 +176,15 @@ class RegisterForm extends StatelessWidget {
 
                 return ButtonFullWidth(
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {
+                    if (widget._formKey.currentState!.validate()) {
                       BlocProvider.of<RegisterScreenBloc>(context).add(
                         FetchRegisterUser(
                           RegisterUserParams(
-                            email: emailController.text,
-                            name: nameController.text,
-                            password: passwordController.text,
-                            passwordConfirm: passwordConfirmController.text,
+                            email: widget.emailController.text,
+                            name: widget.nameController.text,
+                            password: widget.passwordController.text,
+                            passwordConfirm:
+                                widget.passwordConfirmController.text,
                           ),
                         ),
                       );

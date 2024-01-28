@@ -19,11 +19,24 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       final response = await _dio.post("/auth/register", data: request);
 
-      print("data source register: $response");
+      return response.data;
+    } catch (e) {
+      throw Exception(handleError(e));
+    }
+  }
+
+  @override
+  Future<Map<String, dynamic>> loginUserRemote(params) async {
+    try {
+      Map<String, dynamic> request = {
+        'email': params.email,
+        'password': params.password,
+      };
+
+      final response = await _dio.post("/auth/login", data: request);
 
       return response.data;
     } catch (e) {
-      print("error register: $e");
       throw Exception(handleError(e));
     }
   }

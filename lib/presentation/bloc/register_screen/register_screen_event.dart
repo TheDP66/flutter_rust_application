@@ -9,3 +9,9 @@ class FetchRegisterUser extends RegisterScreenEvent {
 
   FetchRegisterUser(this.params);
 }
+
+class FetchLoginUser extends RegisterScreenEvent {
+  final LoginUserParams params;
+
+  FetchLoginUser(this.params);
+}
