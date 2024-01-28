@@ -1,5 +1,5 @@
 import 'package:InOut/presentation/pages/dashboard_screen.dart';
-import 'package:InOut/presentation/pages/welcome_screen.dart';
+import 'package:InOut/presentation/pages/login_screen/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -15,7 +15,7 @@ class SplashScreen extends StatelessWidget {
         (token == null)
             ? Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
-                  builder: (context) => const WelcomeScreen(),
+                  builder: (context) => const LoginScreen(),
                 ),
               )
             : Navigator.of(context).pushReplacement(

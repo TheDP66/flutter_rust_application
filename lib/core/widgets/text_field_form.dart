@@ -11,7 +11,8 @@ class TextFieldForm extends StatelessWidget {
     this.hintText,
     this.controller,
     this.keyboardType,
-    this.obscureText,
+    this.obscureText = false,
+    this.autofocus = false,
   });
 
   final String title;
@@ -21,7 +22,8 @@ class TextFieldForm extends StatelessWidget {
   final void Function(String?)? onChange;
   final TextEditingController? controller;
   final TextInputType? keyboardType;
-  final bool? obscureText;
+  final bool obscureText;
+  final bool autofocus;
 
   @override
   Widget build(BuildContext context) {
@@ -37,13 +39,14 @@ class TextFieldForm extends StatelessWidget {
           ),
         ),
         TextFormField(
+          autofocus: autofocus,
           inputFormatters: inputFormatters,
           validator: validator,
           decoration: InputDecoration(hintText: hintText),
           onChanged: onChange,
           controller: controller,
           keyboardType: keyboardType,
-          obscureText: obscureText ?? false,
+          obscureText: obscureText,
           autovalidateMode: AutovalidateMode.onUserInteraction,
         ),
         const SizedBox(

@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 class AppbarCustom extends StatelessWidget implements PreferredSizeWidget {
   const AppbarCustom({
     super.key,
+    required this.middle,
   });
+
+  final Widget middle;
 
   @override
   Size get preferredSize => const Size.fromHeight(100);
@@ -18,7 +21,7 @@ class AppbarCustom extends StatelessWidget implements PreferredSizeWidget {
           color: Colors.white,
         ),
         backgroundColor: Colors.white,
-        middle: const Text("Get Started"),
+        middle: middle,
       ),
     );
   }

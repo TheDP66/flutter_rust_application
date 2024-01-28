@@ -5,7 +5,6 @@ import 'package:InOut/presentation/bloc/register_screen/register_screen_state.da
 import 'package:InOut/presentation/pages/register_screen/widgets/register_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -15,39 +14,17 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  late SharedPreferences prefs;
-  final _formKey = GlobalKey<FormState>();
-
-  TextEditingController nameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController passwordConfirmController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    _initializePrefs();
-  }
-
-  Future<void> _initializePrefs() async {
-    prefs = await SharedPreferences.getInstance();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppbarCustom(),
+      appBar: const AppbarCustom(
+        middle: Text("Get Started"),
+      ),
       body: BlocProvider(
         create: (context) => inject<RegisterScreenBloc>(),
         child: BlocBuilder<RegisterScreenBloc, RegisterScreenState>(
           builder: (context, state) {
-            return RegisterForm(
-              formKey: _formKey,
-              emailController: emailController,
-              nameController: nameController,
-              passwordController: passwordController,
-              passwordConfirmController: passwordConfirmController,
-            );
+            return const RegisterForm();
           },
         ),
       ),

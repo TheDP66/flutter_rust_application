@@ -14,24 +14,20 @@ import 'package:shared_preferences/shared_preferences.dart';
 class RegisterForm extends StatefulWidget {
   const RegisterForm({
     super.key,
-    required GlobalKey<FormState> formKey,
-    required this.emailController,
-    required this.nameController,
-    required this.passwordController,
-    required this.passwordConfirmController,
-  }) : _formKey = formKey;
-
-  final GlobalKey<FormState> _formKey;
-  final TextEditingController emailController;
-  final TextEditingController nameController;
-  final TextEditingController passwordController;
-  final TextEditingController passwordConfirmController;
+  });
 
   @override
   State<RegisterForm> createState() => _RegisterFormState();
 }
 
 class _RegisterFormState extends State<RegisterForm> {
+  final _formKey = GlobalKey<FormState>();
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController passwordConfirmController = TextEditingController();
+
   late SharedPreferences prefs;
 
   @override
@@ -47,7 +43,7 @@ class _RegisterFormState extends State<RegisterForm> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: widget._formKey,
+      key: _formKey,
       child: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 12,
@@ -71,7 +67,7 @@ class _RegisterFormState extends State<RegisterForm> {
                         }
                         return null;
                       },
-                      controller: widget.emailController,
+                      controller: emailController,
                     ),
                     TextFieldForm(
                       title: "Name",
@@ -84,7 +80,7 @@ class _RegisterFormState extends State<RegisterForm> {
                         }
                         return null;
                       },
-                      controller: widget.nameController,
+                      controller: nameController,
                     ),
                     TextFieldForm(
                       title: "Password",
@@ -97,7 +93,7 @@ class _RegisterFormState extends State<RegisterForm> {
                         }
                         return null;
                       },
-                      controller: widget.passwordController,
+                      controller: passwordController,
                       obscureText: true,
                     ),
                     TextFieldForm(
@@ -106,12 +102,12 @@ class _RegisterFormState extends State<RegisterForm> {
                         if (val == null || val.isEmpty) {
                           return 'Field is required!';
                         }
-                        if (val != widget.passwordController.text) {
+                        if (val != passwordController.text) {
                           return "Password doesn't match";
                         }
                         return null;
                       },
-                      controller: widget.passwordConfirmController,
+                      controller: passwordConfirmController,
                       obscureText: true,
                     ),
                   ],
@@ -148,7 +144,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     FetchLoginUser(
                       LoginUserParams(
                         email: state.user.email!,
-                        password: widget.passwordController.text,
+                        password: passwordController.text,
                       ),
                     ),
                   );
@@ -176,15 +172,14 @@ class _RegisterFormState extends State<RegisterForm> {
 
                 return ButtonFullWidth(
                   onPressed: () {
-                    if (widget._formKey.currentState!.validate()) {
+                    if (_formKey.currentState!.validate()) {
                       BlocProvider.of<RegisterScreenBloc>(context).add(
                         FetchRegisterUser(
                           RegisterUserParams(
-                            email: widget.emailController.text,
-                            name: widget.nameController.text,
-                            password: widget.passwordController.text,
-                            passwordConfirm:
-                                widget.passwordConfirmController.text,
+                            email: emailController.text,
+                            name: nameController.text,
+                            password: passwordController.text,
+                            passwordConfirm: passwordConfirmController.text,
                           ),
                         ),
                       );

@@ -1,6 +1,6 @@
 import 'package:InOut/core/constant/url.dart';
 import 'package:InOut/main.dart';
-import 'package:InOut/presentation/pages/welcome_screen.dart';
+import 'package:InOut/presentation/pages/login_screen/login_screen.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -35,7 +35,7 @@ class DioProvider {
             prefs.remove("token");
             navigatorKey.currentState?.pushReplacement(
               MaterialPageRoute(
-                builder: (context) => const WelcomeScreen(),
+                builder: (context) => const LoginScreen(),
               ),
             );
           }
