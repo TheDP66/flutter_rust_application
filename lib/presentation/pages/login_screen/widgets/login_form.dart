@@ -13,7 +13,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginForm extends StatefulWidget {
-  const LoginForm({super.key});
+  const LoginForm({
+    super.key,
+    required this.isKeyboardOpen,
+  });
+
+  final bool isKeyboardOpen;
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -21,20 +26,19 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
+  late SharedPreferences prefs;
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  late SharedPreferences prefs;
+  Future<void> _initializePrefs() async {
+    prefs = await SharedPreferences.getInstance();
+  }
 
   @override
   void initState() {
     super.initState();
     _initializePrefs();
-  }
-
-  Future<void> _initializePrefs() async {
-    prefs = await SharedPreferences.getInstance();
   }
 
   @override
@@ -49,35 +53,36 @@ class _LoginFormState extends State<LoginForm> {
           ),
           child: Column(
             children: [
-              Column(
-                children: [
-                  TextFieldForm(
-                    title: "Email",
-                    keyboardType: TextInputType.emailAddress,
-                    validator: (val) {
-                      if (val == null || val.isEmpty) {
-                        return 'Field is required!';
-                      }
-                      if (!val.validEmail) {
-                        return 'Email is invalid';
-                      }
-                      return null;
-                    },
-                    controller: emailController,
-                  ),
-                  TextFieldForm(
-                    title: "Password",
-                    validator: (val) {
-                      if (val == null || val.isEmpty) {
-                        return 'Field is required!';
-                      }
-                      return null;
-                    },
-                    controller: passwordController,
-                    obscureText: true,
-                  ),
-                ],
+              TextFieldForm(
+                title: "Email",
+                keyboardType: TextInputType.emailAddress,
+                validator: (val) {
+                  if (val == null || val.isEmpty) {
+                    return 'Field is required!';
+                  }
+                  if (!val.validEmail) {
+                    return 'Email is invalid';
+                  }
+                  return null;
+                },
+                controller: emailController,
               ),
+              TextFieldForm(
+                title: "Password",
+                validator: (val) {
+                  if (val == null || val.isEmpty) {
+                    return 'Field is required!';
+                  }
+                  return null;
+                },
+                controller: passwordController,
+                obscureText: true,
+              ),
+              widget.isKeyboardOpen
+                  ? const Expanded(
+                      child: SizedBox(),
+                    )
+                  : const SizedBox(),
               BlocBuilder<LoginScreenBloc, LoginScreenState>(
                 builder: (context, state) {
                   if (state is LoginUserLoading) {
@@ -138,9 +143,6 @@ class _LoginFormState extends State<LoginForm> {
                     ),
                   );
                 },
-              ),
-              const SizedBox(
-                height: 21,
               ),
             ],
           ),
