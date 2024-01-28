@@ -1,28 +1,35 @@
-import 'package:dio/dio.dart';
-import 'package:flutter_rust_application/core/params/auth_params.dart';
-import 'package:flutter_rust_application/core/resources/data_state.dart';
-import 'package:flutter_rust_application/data/datasources/remote/auth_remote_data_source_impl.dart';
-import 'package:flutter_rust_application/data/models/user_model.dart';
-import 'package:flutter_rust_application/domain/entities/user_entity.dart';
-import 'package:flutter_rust_application/domain/repository/auth_repository.dart';
+import 'package:InOut/core/params/auth_params.dart';
+import 'package:InOut/core/resources/data_state.dart';
+import 'package:InOut/data/datasources/auth_remote_data_source.dart';
+import 'package:InOut/data/models/user_model.dart';
+import 'package:InOut/domain/entities/user_entity.dart';
+import 'package:InOut/domain/repository/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  AuthRepositoryImpl({required this.remoteDataSource});
+  final AuthRemoteDataSource remoteDataSource;
 
-  final AuthRemoteDataSourceImpl remoteDataSource;
+  AuthRepositoryImpl(this.remoteDataSource);
 
   @override
   Future<DataState<UserEntity>> registerUserRepository(
       RegisterUserParams params) async {
     try {
-      Response response = await remoteDataSource.registerUserRemote(params);
+      Map<String, dynamic> response = await remoteDataSource.registerUserRemote(
+        params,
+      );
 
-      print("registerUser: $response");
+      final user = response["data"]["user"];
 
-      UserEntity tokenEntity = UserModel.fromJson(response.data);
+      print("register repo user: ${user}");
 
-      return DataSuccess(tokenEntity);
+      UserEntity userEntity = UserModel.fromJson(
+        user,
+      );
+
+      return DataSuccess(userEntity);
     } catch (e) {
+      print("repo register error: $e");
+
       return DataFailed(e.toString());
     }
   }

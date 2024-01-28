@@ -42,7 +42,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 token = prefs.getString("token");
               });
             },
-            child: Text("remove token"),
+            child: const Text("remove token"),
           ),
           ElevatedButton(
             onPressed: () {

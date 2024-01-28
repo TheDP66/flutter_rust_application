@@ -1,4 +1,4 @@
-import 'package:flutter_rust_application/domain/entities/token_entity.dart';
+import 'package:InOut/domain/entities/token_entity.dart';
 
 class TokenModel extends TokenEntity {
   TokenModel.fromJson(dynamic json) {

@@ -1,13 +1,14 @@
+import 'package:InOut/core/utils/dio_provider.dart';
+import 'package:InOut/core/utils/error.dart';
+import 'package:InOut/data/datasources/auth_remote_data_source.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_rust_application/core/utils/dio_provider.dart';
-import 'package:flutter_rust_application/core/utils/error.dart';
-import 'package:flutter_rust_application/data/datasources/auth_remote_data_source.dart';
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
-  final Dio _dio = DioProvider().dio;
+  final Dio _dio;
+  AuthRemoteDataSourceImpl() : _dio = DioProvider().dio;
 
   @override
-  Future<dynamic> registerUserRemote(params) async {
+  Future<Map<String, dynamic>> registerUserRemote(params) async {
     try {
       Map<String, dynamic> request = {
         'email': params.email,
@@ -16,12 +17,13 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         'passwordConfirm': params.passwordConfirm,
       };
 
-      var response = await _dio.post("/auth/register", data: request);
+      final response = await _dio.post("/auth/register", data: request);
 
-      print("registerUser: $response");
+      print("data source register: $response");
 
       return response.data;
     } catch (e) {
+      print("error register: $e");
       throw Exception(handleError(e));
     }
   }

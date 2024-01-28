@@ -1,6 +1,6 @@
+import 'package:InOut/presentation/pages/dashboard_screen.dart';
+import 'package:InOut/presentation/pages/welcome_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rust_application/presentation/pages/dashboard_screen.dart';
-import 'package:flutter_rust_application/presentation/pages/register_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key, required this.token});
@@ -10,12 +10,12 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future.delayed(
-      const Duration(seconds: 1),
+      const Duration(seconds: 2),
       () {
         (token == null)
             ? Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
-                  builder: (context) => const RegisterScreen(),
+                  builder: (context) => const WelcomeScreen(),
                 ),
               )
             : Navigator.of(context).pushReplacement(
@@ -26,7 +26,8 @@ class SplashScreen extends StatelessWidget {
       },
     );
 
-    return SafeArea(
+    return Container(
+      color: Colors.blueAccent,
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -34,7 +35,7 @@ class SplashScreen extends StatelessWidget {
             child: Hero(
               tag: "icon-tag",
               child: Image.asset(
-                "assets/images/icon.png",
+                "assets/images/icon-white.png",
                 width: 125,
                 height: 125,
               ),
@@ -44,22 +45,27 @@ class SplashScreen extends StatelessWidget {
             bottom: 40,
             child: Column(
               children: [
-                Opacity(
-                  opacity: .4,
-                  child: Text(
-                    "from",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 19,
-                    ),
-                  ),
+                SizedBox(
+                  height: 0,
                 ),
-                Text(
-                  "Nama Application",
-                  style: TextStyle(
-                    fontSize: 24,
-                  ),
-                ),
+                // ? Footer if exist
+                // Opacity(
+                //   opacity: .4,
+                //   child: Text(
+                //     "from",
+                //     style: TextStyle(
+                //       color: Colors.white,
+                //       fontWeight: FontWeight.w500,
+                //       fontSize: 19,
+                //     ),
+                //   ),
+                // ),
+                // Text(
+                //   "Nama Application",
+                //   style: TextStyle(
+                //     fontSize: 24,
+                //   ),
+                // ),
               ],
             ),
           ),

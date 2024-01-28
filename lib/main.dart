@@ -1,10 +1,15 @@
+import 'package:InOut/injection.dart';
+import 'package:InOut/presentation/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rust_application/injection.dart';
-import 'package:flutter_rust_application/presentation/pages/splash_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 void main() async {
+  print("=======================================Injecting!");
   await setup();
+  print("=====================================Inject Done!");
+
   SharedPreferences prefs = await SharedPreferences.getInstance();
 
   runApp(MainApp(
@@ -13,15 +18,21 @@ void main() async {
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key, required this.token});
+  const MainApp({
+    super.key,
+    required this.token,
+  });
 
   final token;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigatorKey,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.blueAccent,
+        ),
         useMaterial3: true,
       ),
       home: Scaffold(

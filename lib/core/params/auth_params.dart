@@ -4,10 +4,10 @@ class RegisterUserParams {
   String password;
   String passwordConfirm;
 
-  RegisterUserParams(
-    this.email,
-    this.name,
-    this.password,
-    this.passwordConfirm,
-  );
+  RegisterUserParams({
+    required this.email,
+    required this.name,
+    required this.password,
+    required this.passwordConfirm,
+  });
 }

@@ -1,3 +1,3 @@
-# flutter_rust_application
+# InOut
 
 A new Flutter project.

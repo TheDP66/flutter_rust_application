@@ -8,7 +8,7 @@ String handleError(e) {
       print('Response data: ${e.response?.data}');
 
       // You can throw a custom exception or return an error model
-      return 'Server responded with error: ${e.response?.statusCode}';
+      return e.response?.data?['message'];
     } else {
       // Something went wrong in setting up or sending the request
       print('DioError: ${e.message}');

@@ -1,4 +1,4 @@
-package com.example.flutter_rust_application
+package com.inout.name
 
 import io.flutter.embedding.android.FlutterActivity
 

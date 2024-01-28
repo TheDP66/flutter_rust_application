@@ -1,4 +1,4 @@
-import 'package:flutter_rust_application/domain/entities/user_entity.dart';
+import 'package:InOut/domain/entities/user_entity.dart';
 
 class UserModel extends UserEntity {
   UserModel.fromJson(Map<String, dynamic> json) {
