@@ -140,27 +140,8 @@ class _RegisterFormState extends State<RegisterForm> {
                 }
 
                 if (state is RegisterUserLoaded) {
-                  BlocProvider.of<RegisterScreenBloc>(context).add(
-                    FetchLoginUser(
-                      LoginUserParams(
-                        email: state.user.email!,
-                        password: passwordController.text,
-                      ),
-                    ),
-                  );
-
-                  return ButtonFullWidth(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blueAccent,
-                    ),
-                    child: const CupertinoActivityIndicator(
-                      color: Colors.white,
-                    ),
-                  );
-                }
-
-                if (state is RegisterUserLoginLoaded) {
                   prefs.setString("token", state.token.token!);
+
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(

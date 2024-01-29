@@ -29,21 +29,5 @@ class RegisterScreenBloc
         }
       },
     );
-
-    on<FetchLoginUser>(
-      (event, emit) async {
-        emit(RegisterUserLoading());
-
-        DataState dataState = await loginUserUseCase(event.params);
-
-        if (dataState is DataSuccess) {
-          emit(RegisterUserLoginLoaded(dataState.data));
-        }
-
-        if (dataState is DataFailed) {
-          emit(RegisterUserError(dataState.error!));
-        }
-      },
-    );
   }
 }

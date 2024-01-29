@@ -2,9 +2,7 @@ import 'package:InOut/core/params/auth_params.dart';
 import 'package:InOut/core/resources/data_state.dart';
 import 'package:InOut/data/datasources/auth_remote_data_source.dart';
 import 'package:InOut/data/models/token_model.dart';
-import 'package:InOut/data/models/user_model.dart';
 import 'package:InOut/domain/entities/token_entity.dart';
-import 'package:InOut/domain/entities/user_entity.dart';
 import 'package:InOut/domain/repository/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
@@ -13,7 +11,7 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this.remoteDataSource);
 
   @override
-  Future<DataState<UserEntity>> registerUserRepository(
+  Future<DataState<TokenEntity>> registerUserRepository(
     RegisterUserParams params,
   ) async {
     try {
@@ -21,11 +19,11 @@ class AuthRepositoryImpl implements AuthRepository {
         params,
       );
 
-      UserEntity userEntity = UserModel.fromJson(
-        response["data"]["user"],
+      TokenEntity tokenEntity = TokenModel.fromJson(
+        response["data"],
       );
 
-      return DataSuccess(userEntity);
+      return DataSuccess(tokenEntity);
     } catch (e) {
       return DataFailed(e.toString());
     }
