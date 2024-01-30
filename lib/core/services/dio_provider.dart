@@ -20,10 +20,12 @@ class DioProvider {
     _dio = Dio(
       BaseOptions(
         baseUrl: baseUrl,
+        sendTimeout: const Duration(seconds: 6),
         connectTimeout: const Duration(seconds: 6),
         receiveTimeout: const Duration(seconds: 6),
-        // responseType: ResponseType.json,
-        // contentType: "application/json",
+        maxRedirects: 1,
+        responseType: ResponseType.json,
+        contentType: "application/json",
       ),
     );
 

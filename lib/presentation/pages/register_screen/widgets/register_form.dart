@@ -5,7 +5,7 @@ import 'package:InOut/core/widgets/text_field_form.dart';
 import 'package:InOut/presentation/bloc/register_screen/register_screen_bloc.dart';
 import 'package:InOut/presentation/bloc/register_screen/register_screen_event.dart';
 import 'package:InOut/presentation/bloc/register_screen/register_screen_state.dart';
-import 'package:InOut/presentation/pages/dashboard_screen.dart';
+import 'package:InOut/presentation/pages/dashboard_screen/dashboard_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -56,6 +56,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   children: [
                     const SizedBox(height: 48),
                     TextFieldForm(
+                      autofocus: true,
                       title: "Email",
                       keyboardType: TextInputType.emailAddress,
                       validator: (val) {
