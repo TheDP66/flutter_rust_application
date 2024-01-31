@@ -13,6 +13,7 @@ class TextFieldForm extends StatelessWidget {
     this.keyboardType,
     this.obscureText = false,
     this.autofocus = false,
+    this.prefixText,
   });
 
   final String title;
@@ -24,6 +25,7 @@ class TextFieldForm extends StatelessWidget {
   final TextInputType? keyboardType;
   final bool obscureText;
   final bool autofocus;
+  final String? prefixText;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,10 @@ class TextFieldForm extends StatelessWidget {
           autofocus: autofocus,
           inputFormatters: inputFormatters,
           validator: validator,
-          decoration: InputDecoration(hintText: hintText),
+          decoration: InputDecoration(
+            hintText: hintText,
+            prefixText: prefixText,
+          ),
           onChanged: onChange,
           controller: controller,
           keyboardType: keyboardType,

@@ -1,8 +1,8 @@
 import 'package:InOut/presentation/pages/dashboard_screen/widgets/dashboard_appbar.dart';
 import 'package:InOut/presentation/pages/dashboard_screen/widgets/dashboard_package_section.dart';
 import 'package:InOut/presentation/pages/dashboard_screen/widgets/dashboard_searchbar.dart';
+import 'package:InOut/presentation/pages/package_screen/package_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 List<Map<String, dynamic>> barangList = [
   {
@@ -43,23 +43,6 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  late SharedPreferences prefs;
-  String? token;
-
-  @override
-  void initState() {
-    super.initState();
-    _initializePrefs();
-  }
-
-  Future<void> _initializePrefs() async {
-    prefs = await SharedPreferences.getInstance();
-
-    setState(() {
-      token = prefs.getString("token");
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,44 +66,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 height: 28,
               ),
               DashboardPackageSection(barangList: barangList),
-              Text("token: $token"),
-              ElevatedButton(
-                onPressed: () {
-                  prefs.remove("token");
-
-                  setState(() {
-                    token = prefs.getString("token");
-                  });
-                },
-                child: const Text("remove token"),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  prefs.setString("token", "token");
-
-                  setState(() {
-                    token = prefs.getString("token");
-                  });
-                },
-                child: const Text("set token"),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    token = "LOLOL";
-                  });
-                },
-                child: const Text("set string"),
-              ),
-              const SizedBox(
-                height: 50,
-              ),
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const PackageScreen(),
+            ),
+          );
+        },
         child: const Icon(Icons.add),
       ),
     );

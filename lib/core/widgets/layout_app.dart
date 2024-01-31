@@ -3,7 +3,7 @@ import 'package:InOut/presentation/pages/explore_screen.dart';
 import 'package:InOut/presentation/pages/profile_screen.dart';
 import 'package:flutter/material.dart';
 
-List<Widget> pageList = [
+List<Widget> pageList = const [
   DashboardScreen(),
   ExploreScreen(),
   ProfileScreen(),
