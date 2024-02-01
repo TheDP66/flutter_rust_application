@@ -8,8 +8,10 @@ environment:
 
 dependencies:
   bloc: ^8.1.2
+  cookie_jar: ^4.0.8
   cupertino_icons: ^1.0.6
   dio: ^5.4.0
+  dio_cookie_manager: ^3.1.1
   equatable: ^2.0.5
   flutter:
     sdk: flutter

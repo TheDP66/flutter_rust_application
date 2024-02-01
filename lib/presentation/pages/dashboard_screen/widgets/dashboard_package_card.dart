@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 class DashboardPackageCard extends StatelessWidget {
   const DashboardPackageCard({
     super.key,
-    required this.name,
-    required this.price,
-    required this.stock,
+    this.name,
+    this.price,
+    this.stock,
     this.expiredDate,
   });
 
-  final String name;
-  final String price;
-  final String stock;
+  final String? name;
+  final int? price;
+  final int? stock;
   final String? expiredDate;
 
   @override
@@ -34,8 +34,8 @@ class DashboardPackageCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                name,
-                style: TextStyle(
+                name ?? "-",
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                 ),
@@ -44,7 +44,7 @@ class DashboardPackageCard extends StatelessWidget {
                 opacity: .5,
                 child: Text(
                   "Rp. $price",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
                   ),

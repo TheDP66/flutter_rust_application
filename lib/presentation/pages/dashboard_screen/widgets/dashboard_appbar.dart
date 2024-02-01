@@ -16,7 +16,7 @@ class DashboardAppBar extends StatelessWidget {
       backgroundColor: Colors.grey[100],
       surfaceTintColor: Colors.grey[100],
       leading: Padding(
-        padding: EdgeInsets.only(
+        padding: const EdgeInsets.only(
           left: 14,
         ),
         child: GestureDetector(
@@ -27,7 +27,7 @@ class DashboardAppBar extends StatelessWidget {
               ),
             );
           },
-          child: CircleAvatar(
+          child: const CircleAvatar(
             radius: 28,
             backgroundColor: Colors.red,
           ),
