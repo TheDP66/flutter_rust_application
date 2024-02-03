@@ -47,4 +47,17 @@ class AuthRepositoryImpl implements AuthRepository {
       return DataFailed(e.toString());
     }
   }
+
+  @override
+  Future<DataState<String>> logoutUserRepository() async {
+    try {
+      Map<String, dynamic> response = await remoteDataSource.logoutUserRemote();
+
+      String message = response["data"]["message"];
+
+      return DataSuccess(message);
+    } catch (e) {
+      return DataFailed(e.toString());
+    }
+  }
 }

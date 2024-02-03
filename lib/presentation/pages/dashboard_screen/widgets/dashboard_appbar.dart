@@ -27,9 +27,14 @@ class DashboardAppBar extends StatelessWidget {
               ),
             );
           },
-          child: const CircleAvatar(
+          child: CircleAvatar(
             radius: 28,
-            backgroundColor: Colors.red,
+            backgroundColor: Colors.grey[600],
+            child: const Icon(
+              Icons.person,
+              size: 23,
+              color: Colors.white,
+            ),
           ),
         ),
       ),

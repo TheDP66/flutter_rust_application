@@ -3,14 +3,21 @@ import 'package:InOut/data/datasources/auth_remote_data_source.dart';
 import 'package:InOut/data/datasources/barang_remote_data_source.dart';
 import 'package:InOut/data/datasources/remote/auth_remote_data_source_impl.dart';
 import 'package:InOut/data/datasources/remote/barang_remote_data_source_impl.dart';
+import 'package:InOut/data/datasources/remote/user_remote_data_source_impl.dart';
+import 'package:InOut/data/datasources/user_remote_data_source.dart';
 import 'package:InOut/data/repositories/auth_repository_impl.dart';
 import 'package:InOut/data/repositories/barang_repository_impl.dart';
+import 'package:InOut/data/repositories/user_repository_impl.dart';
 import 'package:InOut/domain/repository/auth_repository.dart';
 import 'package:InOut/domain/repository/barang_repository.dart';
+import 'package:InOut/domain/repository/user_repository.dart';
 import 'package:InOut/domain/use_cases/get_barang_usecase.dart';
 import 'package:InOut/domain/use_cases/insert_barang_usecase.dart';
 import 'package:InOut/domain/use_cases/login_user_usecase.dart';
+import 'package:InOut/domain/use_cases/logout_user_usecase.dart';
+import 'package:InOut/domain/use_cases/me_user_usecase.dart';
 import 'package:InOut/domain/use_cases/register_user_usecase.dart';
+import 'package:InOut/presentation/bloc/account_screen/account_screen_bloc.dart';
 import 'package:InOut/presentation/bloc/dashboard_screen/dashboard_screen_bloc.dart';
 import 'package:InOut/presentation/bloc/login_screen/login_screen_bloc.dart';
 import 'package:InOut/presentation/bloc/package_screen/package_screen_bloc.dart';
@@ -35,6 +42,9 @@ setup() async {
     inject.registerLazySingleton<BarangRemoteDataSource>(
       () => BarangRemoteDataSourceImpl(),
     );
+    inject.registerLazySingleton<UserRemoteDataSource>(
+      () => UserRemoteDataSourceImpl(),
+    );
 
     // repository
     inject.registerLazySingleton<AuthRepository>(
@@ -42,6 +52,9 @@ setup() async {
     );
     inject.registerLazySingleton<BarangRepository>(
       () => BarangRepositoryImpl(inject()),
+    );
+    inject.registerLazySingleton<UserRepository>(
+      () => UserRepositoryImpl(inject()),
     );
 
     // use case
@@ -56,6 +69,12 @@ setup() async {
     );
     inject.registerLazySingleton(
       () => InsertBarangUseCase(inject()),
+    );
+    inject.registerLazySingleton(
+      () => LogoutUserUseCase(inject()),
+    );
+    inject.registerLazySingleton(
+      () => MeUserUseCase(inject()),
     );
 
     // bloc
@@ -78,6 +97,12 @@ setup() async {
     inject.registerFactory(
       () => PackageScreenBloc(
         insertBarangUseCase: inject(),
+      ),
+    );
+    inject.registerFactory(
+      () => AccountScreenBloc(
+        logoutUserUseCase: inject(),
+        meUserUseCase: inject(),
       ),
     );
   } catch (e) {

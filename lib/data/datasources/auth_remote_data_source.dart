@@ -8,4 +8,6 @@ abstract class AuthRemoteDataSource {
   Future<Map<String, dynamic>> loginUserRemote(
     LoginUserParams params,
   );
+
+  Future<Map<String, dynamic>> logoutUserRemote();
 }

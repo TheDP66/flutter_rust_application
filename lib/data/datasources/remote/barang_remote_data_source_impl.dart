@@ -32,9 +32,6 @@ class BarangRemoteDataSourceImpl implements BarangRemoteDataSource {
         'expired_at': params.expiredAt!.isEmpty ? null : params.expiredAt,
       };
 
-      print("============================== request");
-      print(request);
-
       final response = await _dio.post("/api/barang", data: request);
 
       return response.data;

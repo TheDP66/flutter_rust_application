@@ -64,8 +64,6 @@ class _DateFieldFormState extends State<DateFieldForm> {
   }
 
   Future<void> _showDatePicker() async {
-    // print(date);
-
     DateTime selectedDate = DateTime.now();
 
     await showCupertinoModalPopup<DateTime>(

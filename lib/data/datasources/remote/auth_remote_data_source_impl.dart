@@ -40,4 +40,15 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       throw Exception(handleError(e));
     }
   }
+
+  @override
+  Future<Map<String, dynamic>> logoutUserRemote() async {
+    try {
+      final response = await _dio.post("/auth/logout");
+
+      return response.data;
+    } catch (e) {
+      throw Exception(handleError(e));
+    }
+  }
 }

@@ -44,13 +44,15 @@ class DioProvider {
     _dio.interceptors.add(
       InterceptorsWrapper(
         onError: (error, handler) async {
-          print("========================================= error");
+          print("================================ error");
           print(error);
+          print(error.response?.statusCode);
+          print(error.message);
+          print(error.response);
           if (error.response?.statusCode == 401) {
+            print("============================ 401");
             prefs = await SharedPreferences.getInstance();
             prefs.remove("token");
-
-            print("========================================= 401");
 
             navigatorKey.currentState?.pushReplacement(
               MaterialPageRoute(
