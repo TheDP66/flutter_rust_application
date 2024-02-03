@@ -41,10 +41,12 @@ class _PackageScreenState extends State<PackageScreen> {
   }
 
   void _resetPackageForm() {
-    nameController.text = "";
-    priceController.text = "";
-    stockController.text = "";
-    expiredAtController.text = "";
+    Future.delayed(Duration.zero, () {
+      if (mounted) {
+        _formKey.currentState!.reset();
+        expiredAtController.text = "";
+      }
+    });
   }
 
   @override
@@ -58,6 +60,7 @@ class _PackageScreenState extends State<PackageScreen> {
             color: Colors.transparent,
           ),
           leading: CupertinoButton(
+            alignment: Alignment.centerLeft,
             onPressed: () {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
@@ -187,6 +190,8 @@ class _PackageScreenState extends State<PackageScreen> {
 
                     return ButtonFullWidth(
                       onPressed: () {
+                        _resetPackageForm();
+
                         if (_formKey.currentState!.validate()) {
                           BlocProvider.of<PackageScreenBloc>(context).add(
                             InsertBarang(

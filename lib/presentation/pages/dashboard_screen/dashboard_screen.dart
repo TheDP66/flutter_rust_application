@@ -20,12 +20,6 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   @override
-  void initState() {
-    super.initState();
-    print("============================== initstate");
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
@@ -87,9 +81,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
                       return const SizedBox();
                     },
-                  ),
-                  const SizedBox(
-                    height: 80,
                   ),
                 ],
               ),

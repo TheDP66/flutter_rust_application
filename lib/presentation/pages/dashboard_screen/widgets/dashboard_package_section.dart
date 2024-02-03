@@ -36,6 +36,15 @@ class DashboardPackageSection extends StatelessWidget {
             );
           },
         ),
+        const SizedBox(
+          height: 80,
+          child: Center(
+            child: Opacity(
+              opacity: .7,
+              child: Text("End of Items"),
+            ),
+          ),
+        ),
       ],
     );
   }

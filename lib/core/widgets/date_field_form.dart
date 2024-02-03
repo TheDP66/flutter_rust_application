@@ -44,10 +44,12 @@ class _DateFieldFormState extends State<DateFieldForm> {
             fontSize: 16,
             color: Colors.black,
           ),
-          decoration: InputDecoration().copyWith(
-            suffixIcon: widget.controller.text.isNotEmpty && widget.clearable
+          decoration: const InputDecoration().copyWith(
+            suffixIcon: widget.controller.text.isNotEmpty &&
+                    widget.controller.text != "" &&
+                    widget.clearable
                 ? IconButton(
-                    icon: Icon(Icons.clear),
+                    icon: const Icon(Icons.clear),
                     onPressed: () {
                       setState(() {
                         widget.controller.clear();
