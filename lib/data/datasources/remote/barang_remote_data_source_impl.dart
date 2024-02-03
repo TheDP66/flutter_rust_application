@@ -23,8 +23,23 @@ class BarangRemoteDataSourceImpl implements BarangRemoteDataSource {
   }
 
   @override
-  Future<Map<String, dynamic>> insertBarangRemote(params) {
-    // TODO: implement insertBarangRemote
-    throw UnimplementedError();
+  Future<Map<String, dynamic>> insertBarangRemote(params) async {
+    try {
+      Map<String, dynamic> request = {
+        'name': params.name,
+        'price': params.price,
+        'stock': params.stock,
+        'expired_at': params.expiredAt!.isEmpty ? null : params.expiredAt,
+      };
+
+      print("============================== request");
+      print(request);
+
+      final response = await _dio.post("/api/barang", data: request);
+
+      return response.data;
+    } catch (e) {
+      throw Exception(handleError(e));
+    }
   }
 }

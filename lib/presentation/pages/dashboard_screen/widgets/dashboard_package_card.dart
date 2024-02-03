@@ -52,11 +52,12 @@ class DashboardPackageCard extends StatelessWidget {
               ),
             ],
           ),
+          const SizedBox(height: 6),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Exp. $expiredDate",
+                expiredDate == null ? "-" : "Exp. $expiredDate",
                 style: TextStyle(
                   color: Theme.of(context).primaryColor,
                 ),

@@ -1,10 +1,10 @@
+import 'dart:io';
+
 import 'package:InOut/core/constant/url.dart';
 import 'package:InOut/main.dart';
 import 'package:InOut/presentation/pages/login_screen/login_screen.dart';
-import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/browser.dart';
 import 'package:dio/dio.dart';
-import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -35,10 +35,10 @@ class DioProvider {
     );
 
     // ? for mobile or IOS
-    if (!kIsWeb) {
-      _dio.interceptors.add(CookieManager(CookieJar()));
-    } else {
+    if (kIsWeb) {
       _dio.httpClientAdapter = BrowserHttpClientAdapter(withCredentials: true);
+    } else if (Platform.isAndroid || Platform.isIOS) {
+      // _dio.interceptors.add(CookieManager(CookieJar()));
     }
 
     _dio.interceptors.add(
@@ -49,6 +49,8 @@ class DioProvider {
           if (error.response?.statusCode == 401) {
             prefs = await SharedPreferences.getInstance();
             prefs.remove("token");
+
+            print("========================================= 401");
 
             navigatorKey.currentState?.pushReplacement(
               MaterialPageRoute(

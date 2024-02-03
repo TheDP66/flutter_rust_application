@@ -37,7 +37,7 @@ class _DateFieldFormState extends State<DateFieldForm> {
           controller: widget.controller,
           readOnly: true,
           onTap: () {
-            _showDatePicker(context);
+            _showDatePicker();
           },
           validator: widget.validator,
           style: const TextStyle(
@@ -61,7 +61,9 @@ class _DateFieldFormState extends State<DateFieldForm> {
     );
   }
 
-  Future<void> _showDatePicker(BuildContext context) async {
+  Future<void> _showDatePicker() async {
+    // print(date);
+
     DateTime selectedDate = DateTime.now();
 
     await showCupertinoModalPopup<DateTime>(
@@ -77,7 +79,7 @@ class _DateFieldFormState extends State<DateFieldForm> {
             onDateTimeChanged: (DateTime newDate) {
               setState(() {
                 widget.controller.text =
-                    selectedDate.toLocal().toString().split(' ')[0];
+                    newDate.toLocal().toString().split(' ')[0];
               });
             },
           ),

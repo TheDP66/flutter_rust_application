@@ -1,18 +1,20 @@
+import 'package:InOut/domain/entities/barang_entity.dart';
 import 'package:InOut/presentation/pages/dashboard_screen/widgets/dashboard_package_card.dart';
 import 'package:flutter/cupertino.dart';
 
 class DashboardPackageSection extends StatelessWidget {
   const DashboardPackageSection({
     super.key,
-    required this.barangList,
+    required this.barangs,
   });
 
-  final List<Map<String, dynamic>> barangList;
+  final List<BarangEntity> barangs;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         const Text(
           "Packages",
@@ -21,20 +23,18 @@ class DashboardPackageSection extends StatelessWidget {
             fontSize: 18,
           ),
         ),
-        const SizedBox(
-          height: 12,
-        ),
-        Column(
-          children: barangList
-              .map(
-                (barang) => DashboardPackageCard(
-                  name: barang["name"],
-                  price: barang["price"],
-                  stock: barang["stock"],
-                  expiredDate: barang["expiredAt"],
-                ),
-              )
-              .toList(),
+        const SizedBox(height: 12),
+        ListView.builder(
+          itemCount: barangs.length,
+          shrinkWrap: true,
+          itemBuilder: (BuildContext context, int index) {
+            return DashboardPackageCard(
+              name: barangs[index].name,
+              price: barangs[index].price,
+              stock: barangs[index].stock,
+              expiredDate: barangs[index].expiredAt,
+            );
+          },
         ),
       ],
     );

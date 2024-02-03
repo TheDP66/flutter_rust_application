@@ -1,14 +1,14 @@
 class InsertBarangParams {
   String name;
-  String price;
-  String stock;
-  String expiredAt;
+  int price;
+  int stock;
+  String? expiredAt;
 
   InsertBarangParams({
     required this.name,
     required this.price,
     required this.stock,
-    required this.expiredAt,
+    this.expiredAt,
   });
 }
 

@@ -8,10 +8,12 @@ import 'package:InOut/data/repositories/barang_repository_impl.dart';
 import 'package:InOut/domain/repository/auth_repository.dart';
 import 'package:InOut/domain/repository/barang_repository.dart';
 import 'package:InOut/domain/use_cases/get_barang_usecase.dart';
+import 'package:InOut/domain/use_cases/insert_barang_usecase.dart';
 import 'package:InOut/domain/use_cases/login_user_usecase.dart';
 import 'package:InOut/domain/use_cases/register_user_usecase.dart';
 import 'package:InOut/presentation/bloc/dashboard_screen/dashboard_screen_bloc.dart';
 import 'package:InOut/presentation/bloc/login_screen/login_screen_bloc.dart';
+import 'package:InOut/presentation/bloc/package_screen/package_screen_bloc.dart';
 import 'package:InOut/presentation/bloc/register_screen/register_screen_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
@@ -52,6 +54,9 @@ setup() async {
     inject.registerLazySingleton(
       () => GetBarangUseCase(inject()),
     );
+    inject.registerLazySingleton(
+      () => InsertBarangUseCase(inject()),
+    );
 
     // bloc
     inject.registerFactory(
@@ -68,6 +73,11 @@ setup() async {
     inject.registerFactory(
       () => DashboardScreenBloc(
         getBarangUseCase: inject(),
+      ),
+    );
+    inject.registerFactory(
+      () => PackageScreenBloc(
+        insertBarangUseCase: inject(),
       ),
     );
   } catch (e) {

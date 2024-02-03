@@ -1,22 +1,22 @@
 import 'package:equatable/equatable.dart';
 
 class BarangEntity extends Equatable {
-  String? id;
-  String? name;
-  int? price;
-  int? stock;
+  String id;
+  String name;
+  int price;
+  int stock;
   String? expiredAt;
-  String? createdAt;
-  String? updatedAt;
+  String createdAt;
+  String updatedAt;
 
   BarangEntity({
-    this.id,
-    this.name,
-    this.price,
-    this.stock,
+    required this.id,
+    required this.name,
+    required this.price,
+    required this.stock,
     this.expiredAt,
-    this.createdAt,
-    this.updatedAt,
+    required this.createdAt,
+    required this.updatedAt,
   });
 
   @override

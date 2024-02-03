@@ -31,8 +31,20 @@ class BarangRepositoryImpl implements BarangRepository {
 
   @override
   Future<DataState<BarangEntity>> insertBarangRepository(
-      InsertBarangParams params) {
-    // TODO: implement insertBarangRepository
-    throw UnimplementedError();
+    InsertBarangParams params,
+  ) async {
+    try {
+      Map<String, dynamic> response = await remoteDataSource.insertBarangRemote(
+        params,
+      );
+
+      BarangEntity barangEntity = BarangModel.fromJson(
+        response["data"]["barang"],
+      );
+
+      return DataSuccess(barangEntity);
+    } catch (e) {
+      return DataFailed(e.toString());
+    }
   }
 }
