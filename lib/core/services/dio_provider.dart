@@ -4,6 +4,7 @@ import 'package:InOut/presentation/pages/login_screen/login_screen.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -43,11 +44,17 @@ class DioProvider {
       ),
     );
 
+    print(kIsWeb);
+
     // TODO: choose one to use
     // ? for web
-    // _dio.httpClientAdapter = BrowserHttpClientAdapter(withCredentials: true);
-    // ? for mobile or IOS
-    _dio.interceptors.add(CookieManager(CookieJar()));
+    if (kIsWeb) {
+      // import 'package:dio/browser.dart';
+      // _dio.httpClientAdapter = BrowserHttpClientAdapter(withCredentials: true);
+    } else {
+      // ? for mobile or IOS
+      _dio.interceptors.add(CookieManager(CookieJar()));
+    }
 
     _dio.interceptors.add(
       InterceptorsWrapper(

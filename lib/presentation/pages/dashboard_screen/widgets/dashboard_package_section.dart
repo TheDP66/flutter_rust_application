@@ -1,6 +1,7 @@
 import 'package:InOut/domain/entities/barang_entity.dart';
+import 'package:InOut/presentation/pages/dashboard_screen/widgets/dashboard_export_button.dart';
 import 'package:InOut/presentation/pages/dashboard_screen/widgets/dashboard_package_card.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class DashboardPackageSection extends StatelessWidget {
   const DashboardPackageSection({
@@ -15,12 +16,18 @@ class DashboardPackageSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          "Packages",
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 18,
-          ),
+        const Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "Packages",
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 21,
+              ),
+            ),
+            DashboardExportButton(),
+          ],
         ),
         const SizedBox(height: 12),
         ListView.builder(
