@@ -179,8 +179,8 @@ class _AccountScreenState extends State<AccountScreen> {
 
                       return TextButton.icon(
                         style: TextButton.styleFrom(
-                          iconColor: Colors.red,
-                          foregroundColor: Colors.red,
+                          iconColor: Colors.red[400],
+                          foregroundColor: Colors.red[400],
                         ),
                         onPressed: () => {
                           BlocProvider.of<AccountScreenBloc>(context).add(
@@ -188,10 +188,10 @@ class _AccountScreenState extends State<AccountScreen> {
                           )
                         },
                         icon: const Icon(Icons.logout),
-                        label: const Text(
+                        label: Text(
                           "Log out",
                           style: TextStyle(
-                            color: Colors.red,
+                            color: Colors.red[400],
                           ),
                         ),
                       );

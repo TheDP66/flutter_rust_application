@@ -1,11 +1,9 @@
-import 'dart:io';
-
 import 'package:InOut/core/constant/url.dart';
 import 'package:InOut/main.dart';
 import 'package:InOut/presentation/pages/login_screen/login_screen.dart';
-import 'package:dio/browser.dart';
+import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
+import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -35,9 +33,9 @@ class DioProvider {
     _dio = Dio(
       BaseOptions(
         baseUrl: baseUrl,
-        sendTimeout: const Duration(seconds: 6),
-        connectTimeout: const Duration(seconds: 6),
-        receiveTimeout: const Duration(seconds: 6),
+        sendTimeout: const Duration(seconds: 30),
+        connectTimeout: const Duration(seconds: 30),
+        receiveTimeout: const Duration(seconds: 30),
         followRedirects: true,
         maxRedirects: 3,
         responseType: ResponseType.json,
@@ -45,12 +43,11 @@ class DioProvider {
       ),
     );
 
+    // TODO: choose one to use
+    // ? for web
+    // _dio.httpClientAdapter = BrowserHttpClientAdapter(withCredentials: true);
     // ? for mobile or IOS
-    if (kIsWeb) {
-      _dio.httpClientAdapter = BrowserHttpClientAdapter(withCredentials: true);
-    } else if (Platform.isAndroid || Platform.isIOS) {
-      // _dio.interceptors.add(CookieManager(CookieJar()));
-    }
+    _dio.interceptors.add(CookieManager(CookieJar()));
 
     _dio.interceptors.add(
       InterceptorsWrapper(

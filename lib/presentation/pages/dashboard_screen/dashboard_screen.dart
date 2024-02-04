@@ -74,9 +74,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       if (state is DashboardLoaded) {
                         final List<BarangEntity> barangs = state.barang;
 
-                        return SingleChildScrollView(
-                          child: DashboardPackageSection(barangs: barangs),
-                        );
+                        return DashboardPackageSection(barangs: barangs);
                       }
 
                       return const SizedBox();

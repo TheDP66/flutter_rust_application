@@ -14,7 +14,6 @@ class DashboardPackageSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         const Text(
           "Packages",
@@ -25,6 +24,8 @@ class DashboardPackageSection extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         ListView.builder(
+          padding: const EdgeInsets.only(top: 0),
+          physics: const NeverScrollableScrollPhysics(),
           itemCount: barangs.length,
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) {

@@ -1,11 +1,11 @@
 import 'package:InOut/core/params/auth_params.dart';
 import 'package:InOut/core/utils/validator.dart';
 import 'package:InOut/core/widgets/button_full_width.dart';
+import 'package:InOut/core/widgets/layout_app.dart';
 import 'package:InOut/core/widgets/text_field_form.dart';
 import 'package:InOut/presentation/bloc/register_screen/register_screen_bloc.dart';
 import 'package:InOut/presentation/bloc/register_screen/register_screen_event.dart';
 import 'package:InOut/presentation/bloc/register_screen/register_screen_state.dart';
-import 'package:InOut/presentation/pages/dashboard_screen/dashboard_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,7 +46,7 @@ class _RegisterFormState extends State<RegisterForm> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) => const DashboardScreen(),
+          builder: (context) => const LayoutApp(),
         ),
       );
     });
