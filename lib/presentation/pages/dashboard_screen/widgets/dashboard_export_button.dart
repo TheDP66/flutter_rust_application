@@ -20,8 +20,6 @@ class DashboardExportButton extends StatelessWidget {
 
         final pdfFile = await InvoicePdfApi.generate(invoice);
 
-        print("=============================== pdf saved");
-
         PdfApi.openFile(pdfFile);
       },
       icon: const Icon(Icons.print),

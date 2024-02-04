@@ -31,8 +31,6 @@ class InvoicePdfApi {
       // footer: (context) => buildFooter(invoice),
     ));
 
-    print("================================== generate finished");
-
     return PdfApi.saveDocument(name: 'my_invoice.pdf', pdf: pdf);
   }
 

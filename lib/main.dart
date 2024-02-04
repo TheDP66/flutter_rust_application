@@ -38,8 +38,6 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     Future<void> _checkPermissions() async {
-      print("======================================== Check permission start!");
-
       // Check if permissions are granted
       if (Platform.isAndroid) {
         await Permission.storage.request().isGranted;
@@ -52,8 +50,6 @@ class _MainAppState extends State<MainApp> {
 
       if (Platform.isAndroid) PathProviderAndroid.registerWith();
       if (Platform.isIOS) PathProviderIOS.registerWith();
-      print(
-          "======================================== Check permission finished!");
     }
 
     @override
