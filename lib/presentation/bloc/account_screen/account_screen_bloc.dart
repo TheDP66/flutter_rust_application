@@ -23,7 +23,7 @@ class AccountScreenBloc extends Bloc<AccountScreenEvent, AccountScreenState> {
       }
 
       if (dataState is DataFailed) {
-        emit(AccountError(dataState.error!));
+        emit(LogoutError(dataState.error!));
       }
     });
 

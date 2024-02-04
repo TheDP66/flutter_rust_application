@@ -14,8 +14,6 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
 
       return response.data;
     } catch (e) {
-      print("===================== e");
-      print(e);
       throw Exception(handleError(e));
     }
   }

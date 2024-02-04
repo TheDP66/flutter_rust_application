@@ -53,7 +53,7 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       Map<String, dynamic> response = await remoteDataSource.logoutUserRemote();
 
-      String message = response["data"]["message"];
+      String message = response["message"];
 
       return DataSuccess(message);
     } catch (e) {

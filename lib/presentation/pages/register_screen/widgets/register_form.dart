@@ -40,6 +40,18 @@ class _RegisterFormState extends State<RegisterForm> {
     prefs = await SharedPreferences.getInstance();
   }
 
+  Future<void> _loginUser(token) async {
+    prefs.setString("token", token!);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const DashboardScreen(),
+        ),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -141,15 +153,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 }
 
                 if (state is RegisterUserLoaded) {
-                  prefs.setString("token", state.token.token!);
-
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) => const DashboardScreen(),
-                      ),
-                    );
-                  });
+                  _loginUser(state.token.token);
                 }
 
                 return ButtonFullWidth(

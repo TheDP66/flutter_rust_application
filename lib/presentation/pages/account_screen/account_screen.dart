@@ -78,12 +78,22 @@ class _AccountScreenState extends State<AccountScreen> {
                 height: 12,
               ),
               Container(
+                width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 padding: const EdgeInsets.all(12),
                 child: BlocBuilder<AccountScreenBloc, AccountScreenState>(
+                  buildWhen: (prev, curr) {
+                    if (curr is AccountLoading ||
+                        curr is AccountLoaded ||
+                        curr is AccountError) {
+                      return true;
+                    }
+
+                    return false;
+                  },
                   builder: (context, state) {
                     if (state is AccountLoading) {
                       return const AccountCard(
@@ -108,6 +118,22 @@ class _AccountScreenState extends State<AccountScreen> {
                           ),
                         );
                       });
+
+                      return Expanded(
+                        child: Column(
+                          children: [
+                            const Opacity(
+                              opacity: .8,
+                              child: Text("Fetching failed"),
+                            ),
+                            TextButton.icon(
+                              onPressed: () {},
+                              icon: const Icon(Icons.refresh),
+                              label: const Text("Try again"),
+                            ),
+                          ],
+                        ),
+                      );
                     }
 
                     return const SizedBox();
@@ -120,19 +146,56 @@ class _AccountScreenState extends State<AccountScreen> {
               SizedBox(
                 width: double.infinity,
                 child: Expanded(
-                  child: TextButton.icon(
-                    style: TextButton.styleFrom(
-                      iconColor: Colors.red,
-                      foregroundColor: Colors.red,
-                    ),
-                    onPressed: () => _logoutUser(),
-                    icon: const Icon(Icons.logout),
-                    label: const Text(
-                      "Log out",
-                      style: TextStyle(
-                        color: Colors.red,
-                      ),
-                    ),
+                  child: BlocBuilder<AccountScreenBloc, AccountScreenState>(
+                    builder: (context, state) {
+                      if (state is LogoutLoading) {
+                        return TextButton(
+                          onPressed: () {},
+                          child: const CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Colors.grey,
+                            ),
+                          ),
+                        );
+                      }
+
+                      if (state is LogoutLoaded) {
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          _logoutUser();
+                        });
+                      }
+
+                      if (state is LogoutError) {
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              behavior: SnackBarBehavior.floating,
+                              margin: const EdgeInsets.all(20),
+                              content: Text(state.message),
+                            ),
+                          );
+                        });
+                      }
+
+                      return TextButton.icon(
+                        style: TextButton.styleFrom(
+                          iconColor: Colors.red,
+                          foregroundColor: Colors.red,
+                        ),
+                        onPressed: () => {
+                          BlocProvider.of<AccountScreenBloc>(context).add(
+                            LogoutUser(),
+                          )
+                        },
+                        icon: const Icon(Icons.logout),
+                        label: const Text(
+                          "Log out",
+                          style: TextStyle(
+                            color: Colors.red,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),
