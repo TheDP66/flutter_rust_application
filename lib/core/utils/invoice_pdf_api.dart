@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:InOut/core/services/pdf_api.dart';
+import 'package:InOut/core/widgets/invoice_pdf_template.dart';
 import 'package:InOut/data/models/invoice_model.dart';
-import 'package:InOut/domain/entities/user_entity.dart';
 import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -21,48 +21,22 @@ class InvoicePdfApi {
       bold: Font.ttf(await rootBundle.load("assets/fonts/Poppins-Bold.ttf")),
     );
 
-    pdf.addPage(pw.MultiPage(
-      theme: appTheme,
-      build: (context) => [
-        buildHeader(invoice, logo),
-        SizedBox(height: 3 * PdfPageFormat.cm),
-        Divider(),
-      ],
-      // footer: (context) => buildFooter(invoice),
-    ));
+    pdf.addPage(
+      pw.MultiPage(
+        theme: appTheme,
+        header: (context) => Text("header"),
+        build: (context) => [
+          buildHeader(invoice.invoiceHeader, logo),
+          SizedBox(height: 3 * PdfPageFormat.cm),
+          buildTitle(invoice.invoiceInfo),
+          buildInvoice(invoice),
+          Divider(),
+          buildSummary(invoice),
+        ],
+        footer: (context) => buildFooter(),
+      ),
+    );
 
     return PdfApi.saveDocument(name: 'my_invoice.pdf', pdf: pdf);
-  }
-
-  static Widget buildHeader(Invoice invoice, Image logo) {
-    return pw.Column(
-      children: [
-        pw.SizedBox(height: 1 * PdfPageFormat.cm),
-        pw.Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            buildUserData(invoice.user),
-            pw.Container(
-              height: 50,
-              width: 50,
-              child: logo,
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  static Widget buildUserData(UserEntity user) {
-    return pw.Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      pw.Text(
-        user.name!,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      pw.SizedBox(height: 1 * PdfPageFormat.mm),
-      pw.Text(user.email!),
-    ]);
   }
 }
