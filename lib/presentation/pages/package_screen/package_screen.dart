@@ -51,16 +51,8 @@ class _PackageScreenState extends State<PackageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: true,
-      onPopInvoked: (pop) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => const LayoutApp(),
-          ),
-        );
-      },
-      child: BlocProvider(
+    return Scaffold(
+      body: BlocProvider(
         create: (context) => inject<PackageScreenBloc>(),
         child: Scaffold(
           appBar: CupertinoNavigationBar(

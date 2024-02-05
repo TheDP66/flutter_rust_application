@@ -87,10 +87,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).pushReplacement(
+        onPressed: () async {
+          await Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => const PackageScreen(),
+            ),
+          );
+
+          FetchBarang(
+            GetBarangParams(
+              name: null,
             ),
           );
         },
