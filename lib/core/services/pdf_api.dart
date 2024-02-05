@@ -14,8 +14,6 @@ class PdfApi {
     final file = File("${dir.path}/$name");
     await file.writeAsBytes(bytes);
 
-    print(file);
-
     return file;
   }
 

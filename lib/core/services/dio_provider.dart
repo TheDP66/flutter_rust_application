@@ -44,7 +44,7 @@ class DioProvider {
       ),
     );
 
-    print(kIsWeb);
+    print("Run in web? $kIsWeb");
 
     // TODO: choose one to use
     // ? for web
@@ -62,7 +62,7 @@ class DioProvider {
           if (error.response?.statusCode == 401) {
             _logoutUser();
           } else {
-            _logoutUser();
+            // _logoutUser();
           }
 
           return handler.next(error);
