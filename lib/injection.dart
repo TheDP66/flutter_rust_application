@@ -92,6 +92,7 @@ setup() async {
     inject.registerFactory(
       () => DashboardScreenBloc(
         getBarangUseCase: inject(),
+        meUserUseCase: inject(),
       ),
     );
     inject.registerFactory(

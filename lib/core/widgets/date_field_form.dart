@@ -59,6 +59,9 @@ class _DateFieldFormState extends State<DateFieldForm> {
                 : null,
           ),
         ),
+        const SizedBox(
+          height: 32,
+        ),
       ],
     );
   }

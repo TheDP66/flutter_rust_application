@@ -1,3 +1,4 @@
+import 'package:InOut/core/utils/formatter.dart';
 import 'package:flutter/material.dart';
 
 class DashboardPackageCard extends StatelessWidget {
@@ -43,7 +44,7 @@ class DashboardPackageCard extends StatelessWidget {
               Opacity(
                 opacity: .5,
                 child: Text(
-                  "Rp. $price",
+                  Formatter.price(price!),
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -57,13 +58,13 @@ class DashboardPackageCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                expiredDate == null ? "-" : "Exp. $expiredDate",
+                expiredDate == null ? "" : "Exp. $expiredDate",
                 style: TextStyle(
                   color: Theme.of(context).primaryColor,
                 ),
               ),
               Text(
-                "x$stock",
+                "Stock: $stock",
                 style: TextStyle(
                   color: Theme.of(context).primaryColor,
                 ),

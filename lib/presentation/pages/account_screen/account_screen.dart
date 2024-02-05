@@ -50,7 +50,7 @@ class _AccountScreenState extends State<AccountScreen> {
     return BlocProvider(
       create: (context) => inject<AccountScreenBloc>()
         ..add(
-          MeUser(),
+          FetchMeUser(),
         ),
       child: Scaffold(
         appBar: CupertinoNavigationBar(

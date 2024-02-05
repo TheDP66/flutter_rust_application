@@ -7,6 +7,6 @@ class LogoutUser extends AccountScreenEvent {
   LogoutUser();
 }
 
-class MeUser extends AccountScreenEvent {
-  MeUser();
+class FetchMeUser extends AccountScreenEvent {
+  FetchMeUser();
 }

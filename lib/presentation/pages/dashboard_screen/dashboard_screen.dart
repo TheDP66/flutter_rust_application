@@ -54,6 +54,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     height: 28,
                   ),
                   BlocBuilder<DashboardScreenBloc, DashboardScreenState>(
+                    buildWhen: (prev, curr) {
+                      if (curr is DashboardLoading ||
+                          curr is DashboardLoaded ||
+                          curr is DashboardError) {
+                        return true;
+                      }
+
+                      return false;
+                    },
                     builder: (context, state) {
                       if (state is DashboardLoading) {
                         return const CircularProgressIndicator();

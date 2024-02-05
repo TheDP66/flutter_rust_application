@@ -9,3 +9,9 @@ class FetchBarang extends DashboardScreenEvent {
 
   FetchBarang(this.params);
 }
+
+class PrepExportPackage extends DashboardScreenEvent {
+  final GetBarangParams params;
+
+  PrepExportPackage(this.params);
+}

@@ -27,7 +27,7 @@ class AccountScreenBloc extends Bloc<AccountScreenEvent, AccountScreenState> {
       }
     });
 
-    on<MeUser>((event, emit) async {
+    on<FetchMeUser>((event, emit) async {
       emit(AccountLoading());
 
       DataState dataState = await meUserUseCase(());
