@@ -13,15 +13,15 @@ class UserModel extends UserEntity {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['createdAt'] = this.createdAt;
-    data['email'] = this.email;
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['photo'] = this.photo;
-    data['role'] = this.role;
-    data['updatedAt'] = this.updatedAt;
-    data['verified'] = this.verified;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['createdAt'] = createdAt;
+    data['email'] = email;
+    data['id'] = id;
+    data['name'] = name;
+    data['photo'] = photo;
+    data['role'] = role;
+    data['updatedAt'] = updatedAt;
+    data['verified'] = verified;
     return data;
   }
 

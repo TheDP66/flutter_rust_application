@@ -7,20 +7,20 @@ class BarangModel extends BarangEntity {
           name: json['name'],
           price: json['price'],
           stock: json['stock'],
-          expiredAt: json['expiredAt'] ?? null,
+          expiredAt: json['expiredAt'],
           createdAt: json['createdAt'],
           updatedAt: json['updatedAt'],
         );
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['price'] = this.price;
-    data['stock'] = this.stock;
-    data['expiredAt'] = this.expiredAt ?? null;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['price'] = price;
+    data['stock'] = stock;
+    data['expiredAt'] = expiredAt;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
     return data;
   }
 
