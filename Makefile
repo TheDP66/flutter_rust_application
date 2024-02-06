@@ -1,5 +1,5 @@
 launcher:
 	flutter pub run flutter_launcher_icons
 
-build_runner:
-	dart run build_runner build
+build:
+    flutter build apk --target-platform android-arm64 --analyze-size --split-per-abi
