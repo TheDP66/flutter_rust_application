@@ -11,6 +11,9 @@ class Formatter {
     return currencyFormat.format(price);
   }
 
-  static date(DateTime date) =>
-      DateFormat.yMd().format(date).replaceAll("/", "-");
+  static date(DateTime date) {
+    final outputFormat = DateFormat('yyyy-MM-dd');
+
+    return outputFormat.format(date).replaceAll("/", "-");
+  }
 }

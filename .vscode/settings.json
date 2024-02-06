@@ -1,3 +1,11 @@
 {
-  "conventionalCommits.scopes": ["page", "ui", "fn", "bloc", "log", "app"]
+  "conventionalCommits.scopes": [
+    "page",
+    "ui",
+    "fn",
+    "bloc",
+    "log",
+    "app",
+    "model"
+  ]
 }
