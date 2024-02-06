@@ -1,18 +1,49 @@
+import 'dart:io';
+
 import 'package:InOut/core/widgets/layout_app.dart';
 import 'package:InOut/presentation/pages/login_screen/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider_android/path_provider_android.dart';
+import 'package:path_provider_ios/path_provider_ios.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key, required this.token});
 
   final token;
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  Future<void> _checkPermissions() async {
+    // Check if permissions are granted
+    if (Platform.isAndroid) {
+      await Permission.manageExternalStorage.request().isGranted;
+      await Permission.photos.request();
+      await Permission.videos.request();
+      await Permission.audio.request();
+    } else {
+      await Permission.storage.request();
+    }
+
+    if (Platform.isAndroid) PathProviderAndroid.registerWith();
+    if (Platform.isIOS) PathProviderIOS.registerWith();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _checkPermissions();
+  }
 
   @override
   Widget build(BuildContext context) {
     Future.delayed(
       const Duration(seconds: 2),
       () {
-        (token == null)
+        (widget.token == null)
             ? Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
                   builder: (context) => const LoginScreen(),

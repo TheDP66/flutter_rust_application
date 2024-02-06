@@ -1,11 +1,6 @@
-import 'dart:io';
-
 import 'package:InOut/injection.dart';
 import 'package:InOut/presentation/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider_android/path_provider_android.dart';
-import 'package:path_provider_ios/path_provider_ios.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -37,25 +32,9 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
-    Future<void> _checkPermissions() async {
-      // Check if permissions are granted
-      if (Platform.isAndroid) {
-        await Permission.storage.request().isGranted;
-        await Permission.photos.request().isGranted;
-        await Permission.videos.request().isGranted;
-        await Permission.audio.request().isGranted;
-      } else {
-        await Permission.storage.request().isGranted;
-      }
-
-      if (Platform.isAndroid) PathProviderAndroid.registerWith();
-      if (Platform.isIOS) PathProviderIOS.registerWith();
-    }
-
     @override
     void initState() {
       super.initState();
-      _checkPermissions();
     }
 
     return MaterialApp(
