@@ -35,6 +35,16 @@ class _LoginFormState extends State<LoginForm> {
     prefs = await SharedPreferences.getInstance();
   }
 
+  void _redirectDashboard() async {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const LayoutApp(),
+        ),
+      );
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -111,14 +121,7 @@ class _LoginFormState extends State<LoginForm> {
                   }
 
                   if (state is LoginUserLoaded) {
-                    prefs.setString("token", state.token.token!);
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (context) => const LayoutApp(),
-                        ),
-                      );
-                    });
+                    _redirectDashboard();
                   }
 
                   return ButtonFullWidth(

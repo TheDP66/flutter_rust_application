@@ -41,8 +41,6 @@ class _RegisterFormState extends State<RegisterForm> {
   }
 
   Future<void> _loginUser(token) async {
-    prefs.setString("token", token!);
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(

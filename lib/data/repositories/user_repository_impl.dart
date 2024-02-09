@@ -3,6 +3,7 @@ import 'package:InOut/data/datasources/user_remote_data_source.dart';
 import 'package:InOut/data/models/user_model.dart';
 import 'package:InOut/domain/entities/user_entity.dart';
 import 'package:InOut/domain/repository/user_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserRepositoryImpl implements UserRepository {
   final UserRemoteDataSource remoteDataSource;
@@ -17,6 +18,9 @@ class UserRepositoryImpl implements UserRepository {
       UserEntity user = UserModel.fromJson(
         response["data"]["user"],
       );
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString("user", user.toString());
 
       return DataSuccess(user);
     } catch (e) {
