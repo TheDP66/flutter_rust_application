@@ -42,5 +42,19 @@ class DashboardScreenBloc
         );
       }
     });
+
+    on<FetchMeUser>((event, emit) async {
+      emit(MeLoading());
+
+      DataState dataState = await meUserUseCase(());
+
+      if (dataState is DataSuccess) {
+        emit(MeLoaded(dataState.data));
+      }
+
+      if (dataState is DataFailed) {
+        emit(MeError(dataState.error!));
+      }
+    });
   }
 }

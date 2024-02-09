@@ -19,80 +19,115 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  TextEditingController searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create: (context) => inject<DashboardScreenBloc>()
-          ..add(
-            FetchBarang(
-              GetBarangParams(
-                name: null,
-              ),
+        create: (context) {
+          final bloc = inject<DashboardScreenBloc>();
+
+          bloc.add(FetchMeUser());
+          bloc.add(FetchBarang(
+            GetBarangParams(
+              name: null,
             ),
-          ),
-        child: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return [
-              const SliverToBoxAdapter(
-                child: SizedBox(height: 20),
-              ),
-              const DashboardAppBar(),
-            ];
+          ));
+
+          return bloc;
+        },
+        child: BlocBuilder<DashboardScreenBloc, DashboardScreenState>(
+          buildWhen: (prev, curr) {
+            if (curr is DashboardLoading ||
+                curr is DashboardLoaded ||
+                curr is DashboardError) {
+              return true;
+            }
+
+            return false;
           },
-          body: SingleChildScrollView(
-            child: Container(
-              padding: const EdgeInsets.only(
-                top: 14,
-                left: 14,
-                right: 14,
-              ),
-              child: Column(
-                children: [
-                  const DashboardSearchBar(),
-                  const SizedBox(
-                    height: 28,
+          builder: (context, state) {
+            return NestedScrollView(
+              headerSliverBuilder:
+                  (BuildContext context, bool innerBoxIsScrolled) {
+                return [
+                  const SliverToBoxAdapter(
+                    child: SizedBox(height: 20),
                   ),
-                  BlocBuilder<DashboardScreenBloc, DashboardScreenState>(
-                    buildWhen: (prev, curr) {
-                      if (curr is DashboardLoading ||
-                          curr is DashboardLoaded ||
-                          curr is DashboardError) {
-                        return true;
-                      }
+                  const DashboardAppBar(),
+                ];
+              },
+              body: RefreshIndicator(
+                onRefresh: () async {
+                  searchController.text = "";
 
-                      return false;
-                    },
-                    builder: (context, state) {
-                      if (state is DashboardLoading) {
-                        return const CircularProgressIndicator();
-                      }
+                  context.read<DashboardScreenBloc>().add(
+                        FetchBarang(
+                          GetBarangParams(
+                            name: null,
+                          ),
+                        ),
+                      );
 
-                      if (state is DashboardError) {
-                        WidgetsBinding.instance.addPostFrameCallback((_) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              behavior: SnackBarBehavior.floating,
-                              margin: const EdgeInsets.all(20),
-                              content: Text(state.message),
-                            ),
-                          );
-                        });
-                      }
+                  context.read<DashboardScreenBloc>().add(
+                        FetchMeUser(),
+                      );
+                },
+                child: SingleChildScrollView(
+                  child: Container(
+                    padding: const EdgeInsets.only(
+                      top: 14,
+                      left: 14,
+                      right: 14,
+                    ),
+                    child: Column(
+                      children: [
+                        DashboardSearchBar(
+                          searchController: searchController,
+                        ),
+                        const SizedBox(
+                          height: 28,
+                        ),
+                        ...(state is DashboardError
+                            ? [
+                                () {
+                                  WidgetsBinding.instance
+                                      .addPostFrameCallback((_) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        behavior: SnackBarBehavior.floating,
+                                        margin: const EdgeInsets.all(20),
+                                        content: Text(state.message),
+                                      ),
+                                    );
+                                  });
 
-                      if (state is DashboardLoaded) {
-                        final List<BarangEntity> barangs = state.barang;
+                                  return const SizedBox();
+                                }(),
+                              ]
+                            : []),
+                        if (state is DashboardLoading)
+                          const CircularProgressIndicator(),
+                        ...(state is DashboardLoaded
+                            ? [
+                                () {
+                                  final List<BarangEntity> barangs =
+                                      state.barang;
 
-                        return DashboardPackageSection(barangs: barangs);
-                      }
-
-                      return const SizedBox();
-                    },
+                                  return DashboardPackageSection(
+                                    barangs: barangs,
+                                  );
+                                }(),
+                              ]
+                            : []),
+                      ],
+                    ),
                   ),
-                ],
+                ),
               ),
-            ),
-          ),
+            );
+          },
         ),
       ),
       floatingActionButton: FloatingActionButton(

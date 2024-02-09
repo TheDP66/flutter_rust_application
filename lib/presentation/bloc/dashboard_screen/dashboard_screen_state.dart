@@ -33,3 +33,17 @@ class ExportPackageError extends DashboardScreenState {
 
   ExportPackageError(this.message);
 }
+
+class MeLoading extends DashboardScreenState {}
+
+class MeLoaded extends DashboardScreenState {
+  final UserEntity user;
+
+  MeLoaded(this.user);
+}
+
+class MeError extends DashboardScreenState {
+  final String message;
+
+  MeError(this.message);
+}

@@ -5,15 +5,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DashboardSearchBar extends StatefulWidget {
-  const DashboardSearchBar({super.key});
+  const DashboardSearchBar({
+    super.key,
+    required this.searchController,
+  });
+
+  final TextEditingController searchController;
 
   @override
   State<DashboardSearchBar> createState() => _DashboardSearchBarState();
 }
 
 class _DashboardSearchBarState extends State<DashboardSearchBar> {
-  TextEditingController searchController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -21,12 +24,12 @@ class _DashboardSearchBarState extends State<DashboardSearchBar> {
         vertical: 8,
       ),
       child: CupertinoSearchTextField(
-        controller: searchController,
+        controller: widget.searchController,
         onChanged: (String value) {
           BlocProvider.of<DashboardScreenBloc>(context).add(
             FetchBarang(
               GetBarangParams(
-                name: searchController.text,
+                name: widget.searchController.text,
               ),
             ),
           );
@@ -35,7 +38,7 @@ class _DashboardSearchBarState extends State<DashboardSearchBar> {
           BlocProvider.of<DashboardScreenBloc>(context).add(
             FetchBarang(
               GetBarangParams(
-                name: searchController.text,
+                name: widget.searchController.text,
               ),
             ),
           );

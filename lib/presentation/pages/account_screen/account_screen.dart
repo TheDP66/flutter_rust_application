@@ -1,10 +1,13 @@
+import 'package:InOut/core/constant/url.dart';
 import 'package:InOut/injection.dart';
 import 'package:InOut/main.dart';
 import 'package:InOut/presentation/bloc/account_screen/account_screen_bloc.dart';
 import 'package:InOut/presentation/bloc/account_screen/account_screen_event.dart';
 import 'package:InOut/presentation/bloc/account_screen/account_screen_state.dart';
+import 'package:InOut/presentation/pages/account_screen/widgets/account_bottom_sheet.dart';
 import 'package:InOut/presentation/pages/account_screen/widgets/account_card.dart';
 import 'package:InOut/presentation/pages/login_screen/login_screen.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,7 +21,6 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
-  String? token;
   late SharedPreferences prefs;
 
   @override
@@ -29,18 +31,45 @@ class _AccountScreenState extends State<AccountScreen> {
 
   Future<void> _initializePrefs() async {
     prefs = await SharedPreferences.getInstance();
-
-    setState(() {
-      token = prefs.getString("token");
-    });
   }
 
   Future<void> _logoutUser() async {
-    prefs.remove("token");
-
     navigatorKey.currentState?.pushReplacement(
       MaterialPageRoute(
         builder: (context) => const LoginScreen(),
+      ),
+    );
+  }
+
+  void _photoSheet(BuildContext context) async {
+    showModalBottomSheet(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(16),
+        ),
+      ),
+      context: context,
+      showDragHandle: true,
+      builder: (BuildContext context) => AccountBottomSheet(
+        items: [
+          ListItem(
+            icon: Icons.image_outlined,
+            text: 'New profile picture',
+            onTap: () {
+              print('Sending email...');
+              // Implement your email sending logic here
+            },
+          ),
+          ListItem(
+            icon: Icons.delete_outline,
+            iconColor: Colors.red[500],
+            text: 'Remove current picture',
+            onTap: () {
+              print('Making phone call...');
+              // Implement your phone call logic here
+            },
+          ),
+        ],
       ),
     );
   }
@@ -76,6 +105,59 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
               const SizedBox(
                 height: 12,
+              ),
+              GestureDetector(
+                onTap: () {
+                  _photoSheet(context);
+                },
+                child: Center(
+                  child: CircleAvatar(
+                    radius: 35,
+                    backgroundColor: Colors.grey[600]!,
+                    child: Container(
+                      height: 70,
+                      width: 70,
+                      clipBehavior: Clip.antiAlias,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                      ),
+                      child: BlocBuilder<AccountScreenBloc, AccountScreenState>(
+                        builder: (context, state) {
+                          return CachedNetworkImage(
+                            fit: BoxFit.cover,
+                            imageUrl: state is AccountLoaded
+                                ? "$baseUrl/storage/img/${state.user.photo!}"
+                                : "",
+                            errorWidget: (context, url, error) => const Icon(
+                              Icons.person,
+                              size: 45,
+                              color: Colors.white,
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 6,
+              ),
+              Center(
+                child: TextButton(
+                  onPressed: () {
+                    _photoSheet(context);
+                  },
+                  child: const Text(
+                    "Edit picture",
+                    style: TextStyle(
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 24,
               ),
               Container(
                 width: double.infinity,

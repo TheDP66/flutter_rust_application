@@ -15,3 +15,7 @@ class PrepExportPackage extends DashboardScreenEvent {
 
   PrepExportPackage(this.params);
 }
+
+class FetchMeUser extends DashboardScreenEvent {
+  FetchMeUser();
+}
