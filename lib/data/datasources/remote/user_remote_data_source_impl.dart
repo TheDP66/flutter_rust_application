@@ -17,4 +17,20 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
       throw Exception(handleError(e));
     }
   }
+
+  @override
+  Future<Map<String, dynamic>> updatePhotoRemote(param) async {
+    try {
+      FormData formData = FormData.fromMap(param.toJson());
+
+      final response = await _dio.post(
+        "/api/users/me",
+        data: formData,
+      );
+
+      return response.data;
+    } catch (e) {
+      throw Exception(handleError(e));
+    }
+  }
 }

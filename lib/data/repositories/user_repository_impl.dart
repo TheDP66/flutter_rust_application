@@ -27,4 +27,18 @@ class UserRepositoryImpl implements UserRepository {
       return DataFailed(e.toString());
     }
   }
+
+  @override
+  Future<DataState<String>> updateUserRepository(params) async {
+    try {
+      Map<String, dynamic> response =
+          await remoteDataSource.updatePhotoRemote(params);
+
+      String message = response["message"];
+
+      return DataSuccess(message);
+    } catch (e) {
+      return DataFailed(e.toString());
+    }
+  }
 }

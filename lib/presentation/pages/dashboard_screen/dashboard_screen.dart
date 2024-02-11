@@ -37,28 +37,27 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
           return bloc;
         },
-        child: BlocBuilder<DashboardScreenBloc, DashboardScreenState>(
-          buildWhen: (prev, curr) {
-            if (curr is DashboardLoading ||
-                curr is DashboardLoaded ||
-                curr is DashboardError) {
-              return true;
-            }
-
-            return false;
+        child: NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return [
+              const SliverToBoxAdapter(
+                child: SizedBox(height: 20),
+              ),
+              const DashboardAppBar(),
+            ];
           },
-          builder: (context, state) {
-            return NestedScrollView(
-              headerSliverBuilder:
-                  (BuildContext context, bool innerBoxIsScrolled) {
-                return [
-                  const SliverToBoxAdapter(
-                    child: SizedBox(height: 20),
-                  ),
-                  const DashboardAppBar(),
-                ];
-              },
-              body: RefreshIndicator(
+          body: BlocBuilder<DashboardScreenBloc, DashboardScreenState>(
+            buildWhen: (prev, curr) {
+              if (curr is DashboardLoading ||
+                  curr is DashboardLoaded ||
+                  curr is DashboardError) {
+                return true;
+              }
+
+              return false;
+            },
+            builder: (context, state) {
+              return RefreshIndicator(
                 onRefresh: () async {
                   searchController.text = "";
 
@@ -125,9 +124,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     ),
                   ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -138,9 +137,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
           );
 
-          FetchBarang(
-            GetBarangParams(
-              name: null,
+          BlocProvider.of<DashboardScreenBloc>(context).add(
+            FetchBarang(
+              GetBarangParams(
+                name: null,
+              ),
             ),
           );
         },

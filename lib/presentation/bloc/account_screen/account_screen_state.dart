@@ -18,6 +18,20 @@ class AccountError extends AccountScreenState {
   AccountError(this.message);
 }
 
+class UpdateUserLoading extends AccountScreenState {}
+
+class UpdateUserLoaded extends AccountScreenState {
+  final String message;
+
+  UpdateUserLoaded(this.message);
+}
+
+class UpdateUserError extends AccountScreenState {
+  final String message;
+
+  UpdateUserError(this.message);
+}
+
 class LogoutLoading extends AccountScreenState {}
 
 class LogoutLoaded extends AccountScreenState {

@@ -26,7 +26,7 @@ class DashboardExportButton extends StatelessWidget {
         if (state is ExportPackageLoading) {
           return TextButton.icon(
             onPressed: null,
-            icon: Container(
+            icon: const SizedBox(
               height: 16,
               width: 16,
               child: CircularProgressIndicator(

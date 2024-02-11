@@ -17,6 +17,7 @@ import 'package:InOut/domain/use_cases/login_user_usecase.dart';
 import 'package:InOut/domain/use_cases/logout_user_usecase.dart';
 import 'package:InOut/domain/use_cases/me_user_usecase.dart';
 import 'package:InOut/domain/use_cases/register_user_usecase.dart';
+import 'package:InOut/domain/use_cases/update_user_usecase.dart';
 import 'package:InOut/presentation/bloc/account_screen/account_screen_bloc.dart';
 import 'package:InOut/presentation/bloc/dashboard_screen/dashboard_screen_bloc.dart';
 import 'package:InOut/presentation/bloc/login_screen/login_screen_bloc.dart';
@@ -76,6 +77,9 @@ setup() async {
     inject.registerLazySingleton(
       () => MeUserUseCase(inject()),
     );
+    inject.registerLazySingleton(
+      () => UpdateUserUseCase(inject()),
+    );
 
     // bloc
     inject.registerFactory(
@@ -104,6 +108,7 @@ setup() async {
       () => AccountScreenBloc(
         logoutUserUseCase: inject(),
         meUserUseCase: inject(),
+        updateUserUseCase: inject(),
       ),
     );
   } catch (e) {

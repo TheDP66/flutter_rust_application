@@ -191,8 +191,6 @@ class _PackageScreenState extends State<PackageScreen> {
 
                       return ButtonFullWidth(
                         onPressed: () {
-                          _resetPackageForm();
-
                           if (_formKey.currentState!.validate()) {
                             BlocProvider.of<PackageScreenBloc>(context).add(
                               InsertBarang(
