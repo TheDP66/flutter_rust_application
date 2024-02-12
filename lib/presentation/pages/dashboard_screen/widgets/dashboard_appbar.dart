@@ -13,6 +13,8 @@ class DashboardAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return BlocBuilder<DashboardScreenBloc, DashboardScreenState>(
       buildWhen: (prev, curr) {
         if (curr is MeLoading || curr is MeLoaded || curr is MeError) {
@@ -29,8 +31,8 @@ class DashboardAppBar extends StatelessWidget {
           automaticallyImplyLeading: false,
           pinned: true,
           stretch: true,
-          backgroundColor: Colors.grey[100],
-          surfaceTintColor: Colors.grey[100],
+          backgroundColor: colorScheme.background,
+          surfaceTintColor: colorScheme.background,
           leading: Padding(
             padding: const EdgeInsets.only(
               left: 14,
@@ -50,7 +52,7 @@ class DashboardAppBar extends StatelessWidget {
               child: Center(
                 child: CircleAvatar(
                   radius: 20,
-                  backgroundColor: Colors.grey[100],
+                  backgroundColor: colorScheme.background,
                   child: Container(
                     width: 40,
                     height: 40,
@@ -74,14 +76,12 @@ class DashboardAppBar extends StatelessWidget {
                                     const Icon(
                                   Icons.person,
                                   size: 23,
-                                  color: Colors.black,
                                 ),
                               )
                             : state is MeError
                                 ? const Icon(
                                     Icons.image_not_supported,
                                     size: 23,
-                                    color: Colors.black,
                                   )
                                 : const SizedBox(),
                   ),

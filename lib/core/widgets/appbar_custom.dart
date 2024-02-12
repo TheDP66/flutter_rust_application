@@ -14,13 +14,14 @@ class AppbarCustom extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return SizedBox(
       height: 100,
       child: CupertinoNavigationBar(
         border: Border.all(
-          color: Colors.white,
+          color: colorScheme.background,
         ),
-        backgroundColor: Colors.white,
         middle: middle,
       ),
     );

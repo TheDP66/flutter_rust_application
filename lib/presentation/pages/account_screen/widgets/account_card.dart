@@ -13,6 +13,8 @@ class AccountCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return loading
         ? const Center(
             child: CircularProgressIndicator(),
@@ -32,7 +34,7 @@ class AccountCard extends StatelessWidget {
                   Text(
                     user?.name ?? "-",
                     style: TextStyle(
-                      color: Theme.of(context).primaryColor,
+                      color: colorScheme.primary,
                     ),
                   ),
                 ],
@@ -52,7 +54,7 @@ class AccountCard extends StatelessWidget {
                   Text(
                     user?.email ?? "-",
                     style: TextStyle(
-                      color: Theme.of(context).primaryColor,
+                      color: colorScheme.primary,
                     ),
                   ),
                 ],

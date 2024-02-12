@@ -17,6 +17,9 @@ class DashboardPackageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: 16,
@@ -26,7 +29,7 @@ class DashboardPackageCard extends StatelessWidget {
         bottom: 12,
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: colorScheme.secondaryContainer,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
@@ -59,15 +62,11 @@ class DashboardPackageCard extends StatelessWidget {
             children: [
               Text(
                 expiredDate == null ? "" : "Exp. $expiredDate",
-                style: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                ),
+                style: theme.textTheme.titleMedium,
               ),
               Text(
                 "Stock: $stock",
-                style: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                ),
+                style: theme.textTheme.titleMedium,
               ),
             ],
           ),

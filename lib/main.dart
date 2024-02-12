@@ -1,3 +1,4 @@
+import 'package:InOut/core/constant/theme.dart';
 import 'package:InOut/injection.dart';
 import 'package:InOut/presentation/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -34,14 +35,9 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: navigatorKey,
-      theme: ThemeData(
-        fontFamily: "Poppins",
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blueAccent,
-          background: Colors.grey[100],
-        ),
-        useMaterial3: true,
-      ),
+      themeMode: ThemeMode.system,
+      theme: lightTheme,
+      darkTheme: darkTheme,
       home: Scaffold(
         body: SplashScreen(
           token: widget.token,

@@ -23,6 +23,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
       body: BlocProvider(
         create: (context) {
@@ -40,8 +42,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
         child: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return [
-              const SliverToBoxAdapter(
-                child: SizedBox(height: 20),
+              SliverToBoxAdapter(
+                child: Container(
+                  height: 20,
+                  color: colorScheme.primaryContainer,
+                ),
               ),
               const DashboardAppBar(),
             ];
@@ -145,7 +150,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
           );
         },
-        child: const Icon(Icons.add),
+        child: Icon(
+          Icons.add,
+          color: colorScheme.secondaryContainer,
+        ),
       ),
     );
   }

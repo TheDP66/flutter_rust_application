@@ -10,10 +10,12 @@ class AccountDetailSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: colorScheme.secondaryContainer,
         borderRadius: BorderRadius.circular(8),
       ),
       padding: const EdgeInsets.all(12),

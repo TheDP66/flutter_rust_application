@@ -24,6 +24,8 @@ class AccountBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return SizedBox(
       child: ListView.builder(
         shrinkWrap: true,
@@ -32,12 +34,12 @@ class AccountBottomSheet extends StatelessWidget {
           return ListTile(
             leading: Icon(
               items[index].icon,
-              color: items[index].iconColor ?? Colors.black,
+              color: items[index].iconColor ?? colorScheme.inverseSurface,
             ),
             title: Text(
               items[index].text,
               style: TextStyle(
-                color: items[index].iconColor ?? Colors.black,
+                color: items[index].iconColor ?? colorScheme.inverseSurface,
               ),
             ),
             onTap: items[index].onTap,

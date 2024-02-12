@@ -16,9 +16,14 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
-      appBar: const AppbarCustom(
-        middle: Text("Get Started"),
+      appBar: AppbarCustom(
+        middle: Text(
+          "Get Started",
+          style: theme.textTheme.titleMedium,
+        ),
       ),
       body: BlocProvider(
         create: (context) => inject<RegisterScreenBloc>(),

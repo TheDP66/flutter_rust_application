@@ -100,8 +100,8 @@ class _LoginFormState extends State<LoginForm> {
                   if (state is LoginUserLoading) {
                     return ButtonFullWidth(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blueAccent,
-                      ),
+                          // backgroundColor: Colors.blueAccent,
+                          ),
                       child: const CupertinoActivityIndicator(
                         color: Colors.white,
                       ),
@@ -138,7 +138,7 @@ class _LoginFormState extends State<LoginForm> {
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blueAccent,
+                      backgroundColor: Theme.of(context).colorScheme.primary,
                     ),
                     child: const Text(
                       "Next",

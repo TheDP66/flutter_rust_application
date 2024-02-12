@@ -119,7 +119,6 @@ class _AccountProfilePictureState extends State<AccountProfilePicture> {
               child: Center(
                 child: CircleAvatar(
                   radius: 35,
-                  backgroundColor: Colors.grey[100],
                   child: Container(
                     height: 70,
                     width: 70,
@@ -141,14 +140,12 @@ class _AccountProfilePictureState extends State<AccountProfilePicture> {
                                     const Icon(
                                   Icons.person,
                                   size: 45,
-                                  color: Colors.black,
                                 ),
                               )
                             : state is AccountError
                                 ? const Icon(
                                     Icons.image_not_supported,
                                     size: 45,
-                                    color: Colors.black,
                                   )
                                 : const SizedBox(),
                   ),

@@ -38,6 +38,9 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Scaffold(
       body: Container(
         color: Colors.blueAccent,
@@ -76,9 +79,9 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                   20,
                   30,
                 ),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
+                decoration: BoxDecoration(
+                  color: theme.scaffoldBackgroundColor,
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(16),
                     topRight: Radius.circular(16),
                   ),
@@ -94,6 +97,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                         ? const SizedBox()
                         : ButtonFullWidth(
                             style: ElevatedButton.styleFrom(
+                              backgroundColor: colorScheme.background,
                               elevation: 0,
                             ),
                             onPressed: () {
