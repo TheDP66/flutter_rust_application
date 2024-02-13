@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:InOut/core/constant/url.dart';
 import 'package:InOut/main.dart';
 import 'package:InOut/presentation/pages/login_screen/login_screen.dart';
@@ -45,7 +47,7 @@ class DioProvider {
       ),
     );
 
-    print("Run in web? $kIsWeb");
+    log("Run in web? $kIsWeb");
 
     // TODO: choose one to use
     // ? for web

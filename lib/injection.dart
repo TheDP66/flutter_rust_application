@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:InOut/core/services/dio_provider.dart';
 import 'package:InOut/data/datasources/remote/auth_remote_data_source.dart';
 import 'package:InOut/data/datasources/remote/barang_remote_data_source.dart';
@@ -112,6 +114,6 @@ setup() async {
       ),
     );
   } catch (e) {
-    print("Injection error: $e");
+    log("Injection error: $e");
   }
 }

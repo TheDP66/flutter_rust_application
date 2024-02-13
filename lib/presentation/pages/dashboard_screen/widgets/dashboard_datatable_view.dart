@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:InOut/data/datasources/local/barang_local_data_source.dart';
 import 'package:InOut/domain/entities/barang_entity.dart';
 import 'package:data_table_2/data_table_2.dart';
@@ -61,11 +63,11 @@ class _DashboardDatatableViewState extends State<DashboardDatatableView> {
         ],
         onRowsPerPageChanged: (value) {
           _rowsPerPage = value!;
-          print(_rowsPerPage);
+          log(_rowsPerPage.toString());
         },
         initialFirstRowIndex: 0,
         onPageChanged: (rowIndex) {
-          print(rowIndex / _rowsPerPage);
+          log((rowIndex / _rowsPerPage).toString());
         },
         empty: Center(
             child: Container(

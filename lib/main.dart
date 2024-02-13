@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:InOut/core/constant/theme.dart';
 import 'package:InOut/injection.dart';
+import 'package:InOut/presentation/pages/error_screen.dart';
 import 'package:InOut/presentation/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -7,30 +10,34 @@ import 'package:shared_preferences/shared_preferences.dart';
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
-  print("Injecting...");
-  await setup();
-  print("Inject complete!");
+  try {
+    log("Injecting...");
+    await setup();
+    log("Inject complete!");
 
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-
-  runApp(MainApp(
-    token: prefs.getString("token"),
-  ));
+    runApp(MainApp());
+  } catch (e) {
+    runApp(ErrorScreen());
+  }
 }
 
 class MainApp extends StatefulWidget {
   const MainApp({
     super.key,
-    required this.token,
   });
-
-  final token;
 
   @override
   State<MainApp> createState() => _MainAppState();
 }
 
 class _MainAppState extends State<MainApp> {
+  late SharedPreferences prefs;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -38,10 +45,8 @@ class _MainAppState extends State<MainApp> {
       themeMode: ThemeMode.system,
       theme: lightTheme,
       darkTheme: darkTheme,
-      home: Scaffold(
-        body: SplashScreen(
-          token: widget.token,
-        ),
+      home: const Scaffold(
+        body: SplashScreen(),
       ),
     );
   }
