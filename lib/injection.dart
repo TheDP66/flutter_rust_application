@@ -1,10 +1,10 @@
 import 'package:InOut/core/services/dio_provider.dart';
-import 'package:InOut/data/datasources/auth_remote_data_source.dart';
-import 'package:InOut/data/datasources/barang_remote_data_source.dart';
-import 'package:InOut/data/datasources/remote/auth_remote_data_source_impl.dart';
-import 'package:InOut/data/datasources/remote/barang_remote_data_source_impl.dart';
-import 'package:InOut/data/datasources/remote/user_remote_data_source_impl.dart';
-import 'package:InOut/data/datasources/user_remote_data_source.dart';
+import 'package:InOut/data/datasources/remote/auth_remote_data_source.dart';
+import 'package:InOut/data/datasources/remote/barang_remote_data_source.dart';
+import 'package:InOut/data/datasources/remote/impl/auth_remote_data_source_impl.dart';
+import 'package:InOut/data/datasources/remote/impl/barang_remote_data_source_impl.dart';
+import 'package:InOut/data/datasources/remote/impl/user_remote_data_source_impl.dart';
+import 'package:InOut/data/datasources/remote/user_remote_data_source.dart';
 import 'package:InOut/data/repositories/auth_repository_impl.dart';
 import 'package:InOut/data/repositories/barang_repository_impl.dart';
 import 'package:InOut/data/repositories/user_repository_impl.dart';

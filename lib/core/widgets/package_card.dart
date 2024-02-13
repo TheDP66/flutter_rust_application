@@ -1,8 +1,8 @@
 import 'package:InOut/core/utils/formatter.dart';
 import 'package:flutter/material.dart';
 
-class DashboardPackageCard extends StatelessWidget {
-  const DashboardPackageCard({
+class PackageCard extends StatelessWidget {
+  const PackageCard({
     super.key,
     this.name,
     this.price,

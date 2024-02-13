@@ -1,6 +1,6 @@
 import 'package:InOut/core/services/dio_provider.dart';
 import 'package:InOut/core/utils/error.dart';
-import 'package:InOut/data/datasources/user_remote_data_source.dart';
+import 'package:InOut/data/datasources/remote/user_remote_data_source.dart';
 import 'package:dio/dio.dart';
 
 class UserRemoteDataSourceImpl implements UserRemoteDataSource {

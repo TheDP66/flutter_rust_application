@@ -16,6 +16,11 @@ ThemeData lightTheme = ThemeData(
   iconTheme: const IconThemeData(
     color: Colors.black,
   ),
+  iconButtonTheme: const IconButtonThemeData(
+    style: ButtonStyle(
+      iconColor: MaterialStatePropertyAll(Colors.blueAccent),
+    ),
+  ),
   textTheme: const TextTheme(
     titleMedium: TextStyle(
       color: Colors.black,
@@ -51,6 +56,11 @@ ThemeData darkTheme = ThemeData(
   ),
   iconTheme: const IconThemeData(
     color: Colors.white,
+  ),
+  iconButtonTheme: const IconButtonThemeData(
+    style: ButtonStyle(
+      iconColor: MaterialStatePropertyAll(Colors.blueAccent),
+    ),
   ),
   textTheme: const TextTheme(
     titleMedium: TextStyle(

@@ -11,6 +11,7 @@ dependencies:
   cached_network_image: ^3.3.1
   cookie_jar: ^4.0.8
   cupertino_icons: ^1.0.6
+  data_table_2: ^2.5.10
   dio: ^5.4.0
   dio_cookie_manager: ^3.1.1
   equatable: ^2.0.5

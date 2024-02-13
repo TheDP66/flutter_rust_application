@@ -1,6 +1,6 @@
 import 'package:InOut/core/params/auth_params.dart';
 import 'package:InOut/core/resources/data_state.dart';
-import 'package:InOut/data/datasources/auth_remote_data_source.dart';
+import 'package:InOut/data/datasources/remote/auth_remote_data_source.dart';
 import 'package:InOut/data/models/token_model.dart';
 import 'package:InOut/domain/entities/token_entity.dart';
 import 'package:InOut/domain/repository/auth_repository.dart';

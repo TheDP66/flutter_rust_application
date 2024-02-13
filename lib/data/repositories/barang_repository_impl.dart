@@ -1,6 +1,6 @@
 import 'package:InOut/core/params/barang_params.dart';
 import 'package:InOut/core/resources/data_state.dart';
-import 'package:InOut/data/datasources/barang_remote_data_source.dart';
+import 'package:InOut/data/datasources/remote/barang_remote_data_source.dart';
 import 'package:InOut/data/models/barang_model.dart';
 import 'package:InOut/domain/entities/barang_entity.dart';
 import 'package:InOut/domain/repository/barang_repository.dart';

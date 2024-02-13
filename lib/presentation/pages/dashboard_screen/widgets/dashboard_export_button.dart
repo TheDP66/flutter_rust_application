@@ -24,7 +24,7 @@ class DashboardExportButton extends StatelessWidget {
     return BlocBuilder<DashboardScreenBloc, DashboardScreenState>(
       builder: (context, state) {
         if (state is ExportPackageLoading) {
-          return TextButton.icon(
+          return IconButton(
             onPressed: null,
             icon: const SizedBox(
               height: 16,
@@ -37,7 +37,6 @@ class DashboardExportButton extends StatelessWidget {
             style: TextButton.styleFrom(
               foregroundColor: Colors.grey,
             ),
-            label: const Text("Exporting..."),
           );
         }
 
@@ -75,7 +74,7 @@ class DashboardExportButton extends StatelessWidget {
           _generateOpenPdf(title, report);
         }
 
-        return TextButton.icon(
+        return IconButton(
           onPressed: () async {
             BlocProvider.of<DashboardScreenBloc>(context).add(
               PrepExportPackage(
@@ -86,7 +85,6 @@ class DashboardExportButton extends StatelessWidget {
             );
           },
           icon: const Icon(Icons.print),
-          label: const Text("Export"),
         );
       },
     );

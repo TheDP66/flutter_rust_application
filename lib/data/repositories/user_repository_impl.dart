@@ -1,5 +1,5 @@
 import 'package:InOut/core/resources/data_state.dart';
-import 'package:InOut/data/datasources/user_remote_data_source.dart';
+import 'package:InOut/data/datasources/remote/user_remote_data_source.dart';
 import 'package:InOut/data/models/user_model.dart';
 import 'package:InOut/domain/entities/user_entity.dart';
 import 'package:InOut/domain/repository/user_repository.dart';
