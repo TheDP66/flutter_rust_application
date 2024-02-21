@@ -30,24 +30,32 @@ class _RegisterFormState extends State<RegisterForm> {
 
   late SharedPreferences prefs;
 
+  Future<void> _initializePrefs() async {
+    prefs = await SharedPreferences.getInstance();
+  }
+
+  Future<void> _loginUser(token) async {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => const LayoutApp(),
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
     _initializePrefs();
   }
 
-  Future<void> _initializePrefs() async {
-    prefs = await SharedPreferences.getInstance();
-  }
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    passwordConfirmController.dispose();
 
-  Future<void> _loginUser(token) async {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => const LayoutApp(),
-        ),
-      );
-    });
+    super.dispose();
   }
 
   @override
@@ -125,7 +133,22 @@ class _RegisterFormState extends State<RegisterForm> {
                 ),
               ),
             ),
-            BlocBuilder<RegisterScreenBloc, RegisterScreenState>(
+            BlocConsumer<RegisterScreenBloc, RegisterScreenState>(
+              listener: (context, state) {
+                if (state is RegisterUserError) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      behavior: SnackBarBehavior.floating,
+                      margin: const EdgeInsets.all(20),
+                      content: Text(state.message),
+                    ),
+                  );
+                }
+
+                if (state is RegisterUserLoaded) {
+                  _loginUser(state.token.token);
+                }
+              },
               builder: (context, state) {
                 if (state is RegisterUserLoading) {
                   return ButtonFullWidth(
@@ -136,22 +159,6 @@ class _RegisterFormState extends State<RegisterForm> {
                       color: Colors.white,
                     ),
                   );
-                }
-
-                if (state is RegisterUserError) {
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        behavior: SnackBarBehavior.floating,
-                        margin: const EdgeInsets.all(20),
-                        content: Text(state.message),
-                      ),
-                    );
-                  });
-                }
-
-                if (state is RegisterUserLoaded) {
-                  _loginUser(state.token.token);
                 }
 
                 return ButtonFullWidth(

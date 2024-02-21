@@ -10,4 +10,8 @@ abstract class BarangRepository {
   Future<DataState<List<BarangEntity>>> getBarangRepository(
     GetBarangParams params,
   );
+
+  Future<DataState<String>> syncBarangRepository(
+    SyncBarangParams params,
+  );
 }

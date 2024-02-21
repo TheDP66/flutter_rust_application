@@ -8,4 +8,8 @@ abstract class BarangRemoteDataSource {
   Future<Map<String, dynamic>> getBarangRemote(
     GetBarangParams params,
   );
+
+  Future<Map<String, dynamic>> syncBarangRemote(
+    SyncBarangParams params,
+  );
 }

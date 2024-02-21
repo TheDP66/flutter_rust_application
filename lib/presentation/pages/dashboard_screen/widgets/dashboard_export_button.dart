@@ -21,35 +21,16 @@ class DashboardExportButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DashboardScreenBloc, DashboardScreenState>(
-      builder: (context, state) {
-        if (state is ExportPackageLoading) {
-          return IconButton(
-            onPressed: null,
-            icon: const SizedBox(
-              height: 16,
-              width: 16,
-              child: CircularProgressIndicator(
-                strokeWidth: 2,
-                color: Colors.grey,
-              ),
-            ),
-            style: TextButton.styleFrom(
-              foregroundColor: Colors.grey,
+    return BlocConsumer<DashboardScreenBloc, DashboardScreenState>(
+      listener: (context, state) {
+        if (state is ExportPackageError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              behavior: SnackBarBehavior.floating,
+              margin: const EdgeInsets.all(20),
+              content: Text(state.message),
             ),
           );
-        }
-
-        if (state is ExportPackageError) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                behavior: SnackBarBehavior.floating,
-                margin: const EdgeInsets.all(20),
-                content: Text(state.message),
-              ),
-            );
-          });
         }
 
         if (state is ExportPackageLoaded) {
@@ -72,6 +53,24 @@ class DashboardExportButton extends StatelessWidget {
           );
 
           _generateOpenPdf(title, report);
+        }
+      },
+      builder: (context, state) {
+        if (state is ExportPackageLoading) {
+          return IconButton(
+            onPressed: null,
+            icon: const SizedBox(
+              height: 16,
+              width: 16,
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                color: Colors.grey,
+              ),
+            ),
+            style: TextButton.styleFrom(
+              foregroundColor: Colors.grey,
+            ),
+          );
         }
 
         return IconButton(

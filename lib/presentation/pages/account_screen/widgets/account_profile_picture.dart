@@ -81,7 +81,24 @@ class _AccountProfilePictureState extends State<AccountProfilePicture> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AccountScreenBloc, AccountScreenState>(
+    return BlocConsumer<AccountScreenBloc, AccountScreenState>(
+      listener: (context, state) {
+        if (state is UpdateUserError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              behavior: SnackBarBehavior.floating,
+              margin: const EdgeInsets.all(20),
+              content: Text(state.message),
+            ),
+          );
+        }
+
+        if (state is UpdateUserLoaded) {
+          BlocProvider.of<AccountScreenBloc>(context).add(
+            FetchMeUser(),
+          );
+        }
+      },
       buildWhen: (prev, curr) {
         if (curr is LogoutLoading &&
             curr is LogoutLoaded &&
@@ -92,24 +109,6 @@ class _AccountProfilePictureState extends State<AccountProfilePicture> {
         return true;
       },
       builder: (context, state) {
-        if (state is UpdateUserError) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                behavior: SnackBarBehavior.floating,
-                margin: const EdgeInsets.all(20),
-                content: Text(state.message),
-              ),
-            );
-          });
-        }
-
-        if (state is UpdateUserLoaded) {
-          BlocProvider.of<AccountScreenBloc>(context).add(
-            FetchMeUser(),
-          );
-        }
-
         return Column(
           children: [
             GestureDetector(

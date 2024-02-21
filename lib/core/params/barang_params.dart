@@ -19,3 +19,11 @@ class GetBarangParams {
     this.name,
   });
 }
+
+class SyncBarangParams {
+  List<Map<String, dynamic>> barang;
+
+  SyncBarangParams({
+    required this.barang,
+  });
+}

@@ -19,7 +19,18 @@ class AccountDetailSection extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       padding: const EdgeInsets.all(12),
-      child: BlocBuilder<AccountScreenBloc, AccountScreenState>(
+      child: BlocConsumer<AccountScreenBloc, AccountScreenState>(
+        listener: (context, state) {
+          if (state is AccountError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                behavior: SnackBarBehavior.floating,
+                margin: const EdgeInsets.all(20),
+                content: Text(state.message),
+              ),
+            );
+          }
+        },
         buildWhen: (prev, curr) {
           if (curr is AccountLoading ||
               curr is AccountLoaded ||
@@ -44,16 +55,6 @@ class AccountDetailSection extends StatelessWidget {
           }
 
           if (state is AccountError) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  behavior: SnackBarBehavior.floating,
-                  margin: const EdgeInsets.all(20),
-                  content: Text(state.message),
-                ),
-              );
-            });
-
             return Expanded(
               child: Column(
                 children: [

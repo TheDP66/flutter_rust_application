@@ -11,13 +11,15 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   try {
+    WidgetsFlutterBinding.ensureInitialized();
+
     log("Injecting...");
     await setup();
     log("Inject complete!");
 
-    runApp(MainApp());
+    runApp(const MainApp());
   } catch (e) {
-    runApp(ErrorScreen());
+    runApp(const ErrorScreen());
   }
 }
 
@@ -45,9 +47,7 @@ class _MainAppState extends State<MainApp> {
       themeMode: ThemeMode.system,
       theme: lightTheme,
       darkTheme: darkTheme,
-      home: const Scaffold(
-        body: SplashScreen(),
-      ),
+      home: const SplashScreen(),
     );
   }
 }

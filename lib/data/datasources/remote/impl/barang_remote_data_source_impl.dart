@@ -1,3 +1,4 @@
+import 'package:InOut/core/params/barang_params.dart';
 import 'package:InOut/core/services/dio_provider.dart';
 import 'package:InOut/core/utils/error.dart';
 import 'package:InOut/data/datasources/remote/barang_remote_data_source.dart';
@@ -33,6 +34,21 @@ class BarangRemoteDataSourceImpl implements BarangRemoteDataSource {
       };
 
       final response = await _dio.post("/api/barang", data: request);
+
+      return response.data;
+    } catch (e) {
+      throw Exception(handleError(e));
+    }
+  }
+
+  @override
+  Future<Map<String, dynamic>> syncBarangRemote(SyncBarangParams params) async {
+    try {
+      Map<String, dynamic> request = {
+        'barang': params.barang,
+      };
+
+      final response = await _dio.post("/api/barang/sync", data: request);
 
       return response.data;
     } catch (e) {

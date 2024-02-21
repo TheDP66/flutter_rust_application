@@ -1,31 +1,31 @@
 import 'dart:developer';
 
-import 'package:InOut/data/datasources/local/barang_local_data_source.dart';
-import 'package:InOut/domain/entities/barang_entity.dart';
+import 'package:InOut/core/hive/barang.dart';
+import 'package:InOut/core/hive/datasources/barang_hive_data_source.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 
-class DashboardDatatableView extends StatefulWidget {
-  const DashboardDatatableView({
+class OfflinePackageDatatableView extends StatefulWidget {
+  const OfflinePackageDatatableView({
     super.key,
     required this.barangs,
   });
 
-  final List<BarangEntity> barangs;
+  final List<BarangHive> barangs;
 
   @override
-  State<DashboardDatatableView> createState() => _DashboardDatatableViewState();
+  State<OfflinePackageDatatableView> createState() =>
+      _OfflinePackageDatatableViewState();
 }
 
-class _DashboardDatatableViewState extends State<DashboardDatatableView> {
+class _OfflinePackageDatatableViewState
+    extends State<OfflinePackageDatatableView> {
   int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
-  bool _sortAscending = true;
-  int? _sortColumnIndex;
-  bool _initialized = false;
-  PaginatorController? _controller;
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return SizedBox(
       height: 500,
       child: PaginatedDataTable2(
@@ -49,12 +49,12 @@ class _DashboardDatatableViewState extends State<DashboardDatatableView> {
           ),
           DataColumn2(
             label: Text("Exp. Date"),
-            fixedWidth: 50,
+            fixedWidth: 150,
           ),
           DataColumn2(
             label: Text("Qty"),
             numeric: true,
-            fixedWidth: 50,
+            fixedWidth: 100,
           ),
           DataColumn2(
             label: Text("Unit Price"),
@@ -70,11 +70,13 @@ class _DashboardDatatableViewState extends State<DashboardDatatableView> {
           log((rowIndex / _rowsPerPage).toString());
         },
         empty: Center(
-            child: Container(
-                padding: const EdgeInsets.all(20),
-                color: Colors.grey[200],
-                child: const Text('No data'))),
-        source: BarangLocalDataSource(widget.barangs),
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            color: theme.colorScheme.background,
+            child: const Text('No data'),
+          ),
+        ),
+        source: BarangHiveDataSource(widget.barangs),
       ),
     );
   }

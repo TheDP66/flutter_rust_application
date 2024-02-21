@@ -88,7 +88,22 @@ class _AccountScreenState extends State<AccountScreen> {
                 SizedBox(
                   width: double.infinity,
                   child: Expanded(
-                    child: BlocBuilder<AccountScreenBloc, AccountScreenState>(
+                    child: BlocConsumer<AccountScreenBloc, AccountScreenState>(
+                      listener: (context, state) {
+                        if (state is LogoutLoaded) {
+                          _logoutUser();
+                        }
+
+                        if (state is LogoutError) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              behavior: SnackBarBehavior.floating,
+                              margin: const EdgeInsets.all(20),
+                              content: Text(state.message),
+                            ),
+                          );
+                        }
+                      },
                       builder: (context, state) {
                         if (state is LogoutLoading) {
                           return TextButton(
@@ -99,24 +114,6 @@ class _AccountScreenState extends State<AccountScreen> {
                               ),
                             ),
                           );
-                        }
-
-                        if (state is LogoutLoaded) {
-                          WidgetsBinding.instance.addPostFrameCallback((_) {
-                            _logoutUser();
-                          });
-                        }
-
-                        if (state is LogoutError) {
-                          WidgetsBinding.instance.addPostFrameCallback((_) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                behavior: SnackBarBehavior.floating,
-                                margin: const EdgeInsets.all(20),
-                                content: Text(state.message),
-                              ),
-                            );
-                          });
                         }
 
                         return TextButton.icon(

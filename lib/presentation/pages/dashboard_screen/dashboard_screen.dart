@@ -22,6 +22,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
   TextEditingController searchController = TextEditingController();
 
   @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
@@ -51,7 +57,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               const DashboardAppBar(),
             ];
           },
-          body: BlocBuilder<DashboardScreenBloc, DashboardScreenState>(
+          body: BlocConsumer<DashboardScreenBloc, DashboardScreenState>(
             buildWhen: (prev, curr) {
               if (curr is DashboardLoading ||
                   curr is DashboardLoaded ||
@@ -60,6 +66,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
               }
 
               return false;
+            },
+            listener: (context, state) {
+              if (state is DashboardError) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    behavior: SnackBarBehavior.floating,
+                    margin: const EdgeInsets.all(20),
+                    content: Text(state.message),
+                  ),
+                );
+              }
             },
             builder: (context, state) {
               return RefreshIndicator(
@@ -93,24 +110,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         const SizedBox(
                           height: 28,
                         ),
-                        ...(state is DashboardError
-                            ? [
-                                () {
-                                  WidgetsBinding.instance
-                                      .addPostFrameCallback((_) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        behavior: SnackBarBehavior.floating,
-                                        margin: const EdgeInsets.all(20),
-                                        content: Text(state.message),
-                                      ),
-                                    );
-                                  });
-
-                                  return const SizedBox();
-                                }(),
-                              ]
-                            : []),
                         if (state is DashboardLoading)
                           const CircularProgressIndicator(),
                         ...(state is DashboardLoaded

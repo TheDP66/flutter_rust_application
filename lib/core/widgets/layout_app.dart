@@ -1,5 +1,5 @@
 import 'package:InOut/presentation/pages/dashboard_screen/dashboard_screen.dart';
-import 'package:InOut/presentation/pages/explore_screen.dart';
+import 'package:InOut/presentation/pages/explore_screen/explore_screen.dart';
 import 'package:InOut/presentation/pages/profile_screen.dart';
 import 'package:flutter/material.dart';
 

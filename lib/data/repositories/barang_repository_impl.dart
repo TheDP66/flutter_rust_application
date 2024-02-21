@@ -47,4 +47,19 @@ class BarangRepositoryImpl implements BarangRepository {
       return DataFailed(e.toString());
     }
   }
+
+  @override
+  Future<DataState<String>> syncBarangRepository(
+      SyncBarangParams params) async {
+    try {
+      Map<String, dynamic> response =
+          await remoteDataSource.syncBarangRemote(params);
+
+      String message = response["message"];
+
+      return DataSuccess(message);
+    } catch (e) {
+      return DataFailed(e.toString());
+    }
+  }
 }

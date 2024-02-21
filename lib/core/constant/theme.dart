@@ -29,6 +29,12 @@ ThemeData lightTheme = ThemeData(
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
     backgroundColor: Colors.blueAccent,
   ),
+  snackBarTheme: const SnackBarThemeData(
+    backgroundColor: Colors.white,
+    contentTextStyle: TextStyle(
+      color: Colors.black,
+    ),
+  ),
   cupertinoOverrideTheme: NoDefaultCupertinoThemeData(
     barBackgroundColor: Colors.grey[100],
     applyThemeToAll: true,
@@ -69,6 +75,12 @@ ThemeData darkTheme = ThemeData(
   ),
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
     backgroundColor: Colors.blueAccent,
+  ),
+  snackBarTheme: const SnackBarThemeData(
+    backgroundColor: Color.fromARGB(255, 22, 22, 25),
+    contentTextStyle: TextStyle(
+      color: Colors.white,
+    ),
   ),
   cupertinoOverrideTheme: const NoDefaultCupertinoThemeData(
     barBackgroundColor: Color(0xFF1B1B1F),

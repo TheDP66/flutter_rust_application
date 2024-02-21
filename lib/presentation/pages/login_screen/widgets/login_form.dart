@@ -36,19 +36,25 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void _redirectDashboard() async {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => const LayoutApp(),
-        ),
-      );
-    });
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => const LayoutApp(),
+      ),
+    );
   }
 
   @override
   void initState() {
     super.initState();
     _initializePrefs();
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -95,7 +101,22 @@ class _LoginFormState extends State<LoginForm> {
                       child: SizedBox(),
                     )
                   : const SizedBox(),
-              BlocBuilder<LoginScreenBloc, LoginScreenState>(
+              BlocConsumer<LoginScreenBloc, LoginScreenState>(
+                listener: (context, state) {
+                  if (state is LoginUserError) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        behavior: SnackBarBehavior.floating,
+                        margin: EdgeInsets.all(20),
+                        content: Text("Wrong email/password!"),
+                      ),
+                    );
+                  }
+
+                  if (state is LoginUserLoaded) {
+                    _redirectDashboard();
+                  }
+                },
                 builder: (context, state) {
                   if (state is LoginUserLoading) {
                     return ButtonFullWidth(
@@ -106,22 +127,6 @@ class _LoginFormState extends State<LoginForm> {
                         color: Colors.white,
                       ),
                     );
-                  }
-
-                  if (state is LoginUserError) {
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          behavior: SnackBarBehavior.floating,
-                          margin: const EdgeInsets.all(20),
-                          content: Text(state.message),
-                        ),
-                      );
-                    });
-                  }
-
-                  if (state is LoginUserLoaded) {
-                    _redirectDashboard();
                   }
 
                   return ButtonFullWidth(

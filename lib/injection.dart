@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:InOut/core/hive/barang.dart';
 import 'package:InOut/core/services/dio_provider.dart';
 import 'package:InOut/data/datasources/remote/auth_remote_data_source.dart';
 import 'package:InOut/data/datasources/remote/barang_remote_data_source.dart';
@@ -19,14 +20,17 @@ import 'package:InOut/domain/use_cases/login_user_usecase.dart';
 import 'package:InOut/domain/use_cases/logout_user_usecase.dart';
 import 'package:InOut/domain/use_cases/me_user_usecase.dart';
 import 'package:InOut/domain/use_cases/register_user_usecase.dart';
+import 'package:InOut/domain/use_cases/sync_barang_usecase.dart';
 import 'package:InOut/domain/use_cases/update_user_usecase.dart';
 import 'package:InOut/presentation/bloc/account_screen/account_screen_bloc.dart';
 import 'package:InOut/presentation/bloc/dashboard_screen/dashboard_screen_bloc.dart';
+import 'package:InOut/presentation/bloc/explore_screen/explore_screen_bloc.dart';
 import 'package:InOut/presentation/bloc/login_screen/login_screen_bloc.dart';
 import 'package:InOut/presentation/bloc/package_screen/package_screen_bloc.dart';
 import 'package:InOut/presentation/bloc/register_screen/register_screen_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 final inject = GetIt.instance;
 
@@ -34,6 +38,15 @@ setup() async {
   try {
     // env
     await dotenv.load(fileName: ".env");
+
+    // hive
+    await Hive.initFlutter();
+
+    // adapter
+    Hive.registerAdapter(BarangHiveAdapter());
+
+    // open box
+    await Hive.openLazyBox<BarangHive>('barangs');
 
     // service
     inject.registerSingleton<DioProvider>(DioProvider());
@@ -69,6 +82,9 @@ setup() async {
     );
     inject.registerLazySingleton(
       () => GetBarangUseCase(inject()),
+    );
+    inject.registerLazySingleton(
+      () => SyncBarangUseCase(inject()),
     );
     inject.registerLazySingleton(
       () => InsertBarangUseCase(inject()),
@@ -111,6 +127,11 @@ setup() async {
         logoutUserUseCase: inject(),
         meUserUseCase: inject(),
         updateUserUseCase: inject(),
+      ),
+    );
+    inject.registerFactory(
+      () => ExploreScreenBloc(
+        syncBarangUseCase: inject(),
       ),
     );
   } catch (e) {
