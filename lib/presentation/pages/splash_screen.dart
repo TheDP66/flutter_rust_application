@@ -1,10 +1,6 @@
-import 'dart:io';
-
+import 'package:InOut/core/utils/permission.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:path_provider_android/path_provider_android.dart';
-import 'package:path_provider_ios/path_provider_ios.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -17,21 +13,6 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   late String? token;
 
-  Future<void> _checkPermissions() async {
-    // Check if permissions are granted
-    if (Platform.isAndroid) {
-      await Permission.manageExternalStorage.request().isGranted;
-      await Permission.photos.request();
-      await Permission.videos.request();
-      await Permission.audio.request();
-    } else {
-      await Permission.storage.request();
-    }
-
-    if (Platform.isAndroid) PathProviderAndroid.registerWith();
-    if (Platform.isIOS) PathProviderIOS.registerWith();
-  }
-
   Future<void> _checkToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -43,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _checkPermissions();
+    checkPermissions();
     _checkToken();
   }
 

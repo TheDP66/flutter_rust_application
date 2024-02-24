@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:InOut/core/hive/barang.dart';
+import 'package:InOut/core/services/background_service.dart';
 import 'package:InOut/core/services/dio_provider.dart';
 import 'package:InOut/data/datasources/remote/auth_remote_data_source.dart';
 import 'package:InOut/data/datasources/remote/barang_remote_data_source.dart';
@@ -38,6 +39,9 @@ setup() async {
   try {
     // env
     await dotenv.load(fileName: ".env");
+
+    // flutter_background_service
+    await backgroundService();
 
     // hive
     await Hive.initFlutter();
