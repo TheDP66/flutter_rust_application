@@ -1,9 +1,10 @@
 import 'dart:developer';
 
 import 'package:InOut/core/constant/theme.dart';
+import 'package:InOut/core/services/dio_provider.dart';
+import 'package:InOut/core/services/go_router.dart';
 import 'package:InOut/injection.dart';
 import 'package:InOut/presentation/pages/error_screen.dart';
-import 'package:InOut/presentation/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -42,12 +43,13 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      navigatorKey: navigatorKey,
+    DioProvider().setContext(context);
+
+    return MaterialApp.router(
       themeMode: ThemeMode.system,
       theme: lightTheme,
       darkTheme: darkTheme,
-      home: const SplashScreen(),
+      routerConfig: goRouter,
     );
   }
 }

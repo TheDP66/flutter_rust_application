@@ -1,7 +1,7 @@
 import 'package:InOut/core/widgets/button_full_width.dart';
 import 'package:InOut/presentation/pages/login_screen/widgets/login_form.dart';
-import 'package:InOut/presentation/pages/register_screen/register_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -101,11 +101,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                               elevation: 0,
                             ),
                             onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => const RegisterScreen(),
-                                ),
-                              );
+                              context.push("/register");
                             },
                             child: const Text("New to InOut? Sign up!"),
                           ),

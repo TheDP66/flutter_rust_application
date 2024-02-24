@@ -6,6 +6,7 @@ import 'package:InOut/core/widgets/date_field_form.dart';
 import 'package:InOut/core/widgets/text_field_form.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class OfflinePackageScreen extends StatefulWidget {
@@ -75,7 +76,7 @@ class _OfflinePackageScreenState extends State<OfflinePackageScreen> {
         leading: CupertinoButton(
           alignment: Alignment.centerLeft,
           onPressed: () {
-            Navigator.of(context).pop();
+            context.pop();
           },
           padding: EdgeInsets.zero,
           child: const Icon(

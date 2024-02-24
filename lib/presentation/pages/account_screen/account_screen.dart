@@ -1,14 +1,13 @@
 import 'package:InOut/injection.dart';
-import 'package:InOut/main.dart';
 import 'package:InOut/presentation/bloc/account_screen/account_screen_bloc.dart';
 import 'package:InOut/presentation/bloc/account_screen/account_screen_event.dart';
 import 'package:InOut/presentation/bloc/account_screen/account_screen_state.dart';
 import 'package:InOut/presentation/pages/account_screen/widgets/account_detail_section.dart';
 import 'package:InOut/presentation/pages/account_screen/widgets/account_profile_picture.dart';
-import 'package:InOut/presentation/pages/login_screen/login_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AccountScreen extends StatefulWidget {
@@ -31,12 +30,8 @@ class _AccountScreenState extends State<AccountScreen> {
     prefs = await SharedPreferences.getInstance();
   }
 
-  Future<void> _logoutUser() async {
-    navigatorKey.currentState?.pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => const LoginScreen(),
-      ),
-    );
+  Future<void> _logoutUser(BuildContext context) async {
+    context.pushReplacement("/login");
   }
 
   @override
@@ -91,7 +86,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     child: BlocConsumer<AccountScreenBloc, AccountScreenState>(
                       listener: (context, state) {
                         if (state is LogoutLoaded) {
-                          _logoutUser();
+                          _logoutUser(context);
                         }
 
                         if (state is LogoutError) {
@@ -102,6 +97,8 @@ class _AccountScreenState extends State<AccountScreen> {
                               content: Text(state.message),
                             ),
                           );
+
+                          _logoutUser(context);
                         }
                       },
                       builder: (context, state) {

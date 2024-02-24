@@ -14,6 +14,7 @@ class TextFieldForm extends StatelessWidget {
     this.obscureText = false,
     this.autofocus = false,
     this.prefixText,
+    this.autofillHints,
   });
 
   final String title;
@@ -26,6 +27,7 @@ class TextFieldForm extends StatelessWidget {
   final bool obscureText;
   final bool autofocus;
   final String? prefixText;
+  final Iterable<String>? autofillHints;
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +42,7 @@ class TextFieldForm extends StatelessWidget {
           ),
         ),
         TextFormField(
+          autofillHints: autofillHints,
           autofocus: autofocus,
           inputFormatters: inputFormatters,
           validator: validator,

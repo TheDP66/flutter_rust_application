@@ -6,11 +6,11 @@ import 'package:InOut/core/services/hive_boxes.dart';
 import 'package:InOut/injection.dart';
 import 'package:InOut/presentation/bloc/explore_screen/explore_screen_bloc.dart';
 import 'package:InOut/presentation/pages/explore_screen/widgets/offline_package_section.dart';
-import 'package:InOut/presentation/pages/offline_package_screen/offline_package_screen.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class ExploreScreen extends StatefulWidget {
@@ -118,12 +118,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const OfflinePackageScreen(),
-            ),
-          );
+        onPressed: () {
+          context.push("/offline-package");
         },
         child: Icon(
           Icons.add,

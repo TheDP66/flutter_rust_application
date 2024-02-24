@@ -5,6 +5,7 @@ import 'package:InOut/presentation/bloc/dashboard_screen/dashboard_screen_state.
 import 'package:InOut/presentation/pages/account_screen/account_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class DashboardAppBar extends StatelessWidget {
   const DashboardAppBar({
@@ -39,11 +40,7 @@ class DashboardAppBar extends StatelessWidget {
             ),
             child: GestureDetector(
               onTap: () async {
-                await Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const AccountScreen(),
-                  ),
-                );
+                await context.push("/account");
 
                 BlocProvider.of<DashboardScreenBloc>(context).add(
                   FetchMeUser(),

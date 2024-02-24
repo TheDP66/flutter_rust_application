@@ -1,19 +1,19 @@
 import 'dart:developer';
 
 import 'package:InOut/core/constant/url.dart';
-import 'package:InOut/main.dart';
-import 'package:InOut/presentation/pages/login_screen/login_screen.dart';
 // import 'package:dio/browser.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DioProvider {
   static final DioProvider _singleton = DioProvider._internal();
   late SharedPreferences prefs;
+  late BuildContext context;
 
   late Dio _dio;
 
@@ -25,11 +25,7 @@ class DioProvider {
     prefs = await SharedPreferences.getInstance();
     prefs.remove("token");
 
-    navigatorKey.currentState?.pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => const LoginScreen(),
-      ),
-    );
+    context.pushReplacement("/login");
   }
 
   DioProvider._internal() {
@@ -75,4 +71,8 @@ class DioProvider {
   }
 
   Dio get dio => _dio;
+
+  setContext(BuildContext context) {
+    this.context = context;
+  }
 }

@@ -2,7 +2,6 @@ import 'package:InOut/core/params/barang_params.dart';
 import 'package:InOut/core/utils/validator.dart';
 import 'package:InOut/core/widgets/button_full_width.dart';
 import 'package:InOut/core/widgets/date_field_form.dart';
-import 'package:InOut/core/widgets/layout_app.dart';
 import 'package:InOut/core/widgets/text_field_form.dart';
 import 'package:InOut/injection.dart';
 import 'package:InOut/presentation/bloc/package_screen/package_screen_bloc.dart';
@@ -11,6 +10,7 @@ import 'package:InOut/presentation/bloc/package_screen/package_screen_state.dart
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PackageScreen extends StatefulWidget {
@@ -72,11 +72,7 @@ class _PackageScreenState extends State<PackageScreen> {
           leading: CupertinoButton(
             alignment: Alignment.centerLeft,
             onPressed: () {
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
-                  builder: (context) => const LayoutApp(),
-                ),
-              );
+              context.go("/dashboard");
             },
             padding: EdgeInsets.zero,
             child: const Icon(

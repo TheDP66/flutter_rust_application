@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:InOut/core/params/barang_params.dart';
 import 'package:InOut/domain/entities/barang_entity.dart';
 import 'package:InOut/injection.dart';
@@ -7,9 +9,9 @@ import 'package:InOut/presentation/bloc/dashboard_screen/dashboard_screen_state.
 import 'package:InOut/presentation/pages/dashboard_screen/widgets/dashboard_appbar.dart';
 import 'package:InOut/presentation/pages/dashboard_screen/widgets/dashboard_package_section.dart';
 import 'package:InOut/presentation/pages/dashboard_screen/widgets/dashboard_searchbar.dart';
-import 'package:InOut/presentation/pages/package_screen/package_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -25,6 +27,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
   void dispose() {
     searchController.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    log("masukk");
   }
 
   @override
@@ -135,11 +143,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          await Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const PackageScreen(),
-            ),
-          );
+          await context.push("/package");
 
           BlocProvider.of<DashboardScreenBloc>(context).add(
             FetchBarang(

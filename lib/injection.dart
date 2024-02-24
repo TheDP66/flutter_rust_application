@@ -46,7 +46,7 @@ setup() async {
     Hive.registerAdapter(BarangHiveAdapter());
 
     // open box
-    await Hive.openLazyBox<BarangHive>('barangs');
+    await Hive.openBox<BarangHive>('barangs');
 
     // service
     inject.registerSingleton<DioProvider>(DioProvider());

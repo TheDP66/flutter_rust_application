@@ -1,14 +1,15 @@
 import 'package:InOut/core/params/auth_params.dart';
 import 'package:InOut/core/utils/validator.dart';
 import 'package:InOut/core/widgets/button_full_width.dart';
-import 'package:InOut/core/widgets/layout_app.dart';
 import 'package:InOut/core/widgets/text_field_form.dart';
 import 'package:InOut/presentation/bloc/register_screen/register_screen_bloc.dart';
 import 'package:InOut/presentation/bloc/register_screen/register_screen_event.dart';
 import 'package:InOut/presentation/bloc/register_screen/register_screen_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterForm extends StatefulWidget {
@@ -34,12 +35,8 @@ class _RegisterFormState extends State<RegisterForm> {
     prefs = await SharedPreferences.getInstance();
   }
 
-  Future<void> _loginUser(token) async {
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => const LayoutApp(),
-      ),
-    );
+  Future<void> _loginUser(BuildContext context) async {
+    context.go("/dashboard");
   }
 
   @override
@@ -76,6 +73,9 @@ class _RegisterFormState extends State<RegisterForm> {
                     TextFieldForm(
                       autofocus: true,
                       title: "Email",
+                      autofillHints: const [
+                        AutofillHints.email,
+                      ],
                       keyboardType: TextInputType.emailAddress,
                       validator: (val) {
                         if (val == null || val.isEmpty) {
@@ -103,6 +103,10 @@ class _RegisterFormState extends State<RegisterForm> {
                     ),
                     TextFieldForm(
                       title: "Password",
+                      autofillHints: const [
+                        AutofillHints.password,
+                      ],
+                      keyboardType: TextInputType.visiblePassword,
                       validator: (val) {
                         if (val == null || val.isEmpty) {
                           return 'Field is required!';
@@ -146,7 +150,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 }
 
                 if (state is RegisterUserLoaded) {
-                  _loginUser(state.token.token);
+                  _loginUser(context);
                 }
               },
               builder: (context, state) {
@@ -164,6 +168,8 @@ class _RegisterFormState extends State<RegisterForm> {
                 return ButtonFullWidth(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
+                      TextInput.finishAutofillContext();
+
                       BlocProvider.of<RegisterScreenBloc>(context).add(
                         FetchRegisterUser(
                           RegisterUserParams(

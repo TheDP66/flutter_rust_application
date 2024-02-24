@@ -1,8 +1,7 @@
 import 'dart:io';
 
-import 'package:InOut/core/widgets/layout_app.dart';
-import 'package:InOut/presentation/pages/login_screen/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:path_provider_android/path_provider_android.dart';
 import 'package:path_provider_ios/path_provider_ios.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -53,17 +52,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(
       const Duration(seconds: 2),
       () {
-        (token == null)
-            ? Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
-                  builder: (context) => const LoginScreen(),
-                ),
-              )
-            : Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
-                  builder: (context) => const LayoutApp(),
-                ),
-              );
+        (token == null) ? context.go("/login") : context.go("/dashboard");
       },
     );
 
