@@ -5,7 +5,7 @@ import 'package:InOut/presentation/pages/explore_screen/explore_screen.dart';
 import 'package:InOut/presentation/pages/login_screen/login_screen.dart';
 import 'package:InOut/presentation/pages/offline_package_screen/offline_package_screen.dart';
 import 'package:InOut/presentation/pages/package_screen/package_screen.dart';
-import 'package:InOut/presentation/pages/profile_screen.dart';
+import 'package:InOut/presentation/pages/profile_screen/profile_screen.dart';
 import 'package:InOut/presentation/pages/register_screen/register_screen.dart';
 import 'package:InOut/presentation/pages/splash_screen.dart';
 import 'package:flutter/material.dart';

@@ -1,5 +1,5 @@
 import 'package:InOut/core/resources/data_state.dart';
-import 'package:InOut/core/usecase/use_case.dart';
+import 'package:InOut/core/resources/use_case.dart';
 import 'package:InOut/domain/entities/user_entity.dart';
 import 'package:InOut/domain/repository/user_repository.dart';
 

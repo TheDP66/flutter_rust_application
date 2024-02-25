@@ -36,6 +36,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 final inject = GetIt.instance;
 
 setup() async {
+  log("Injecting...");
+
   try {
     // env
     await dotenv.load(fileName: ".env");
@@ -140,5 +142,7 @@ setup() async {
     );
   } catch (e) {
     log("Injection error: $e");
+  } finally {
+    log("Inject complete!");
   }
 }

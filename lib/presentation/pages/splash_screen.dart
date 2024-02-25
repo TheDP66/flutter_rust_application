@@ -1,3 +1,4 @@
+import 'package:InOut/core/services/dio_provider.dart';
 import 'package:InOut/core/utils/permission.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -12,6 +13,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   late String? token;
+  late String? notificationPayload;
 
   Future<void> _checkToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -21,22 +23,42 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
+  Future<void> _checkNotificationPayload() async {
+    // notificationPayload = await backgroundService();
+    // log("notification payload: $notificationPayload");
+
+    // setState(() {
+    //   notificationPayload = notificationPayload;
+    // });
+  }
+
+  void _authNavigate() {
+    (token == null) ? context.go("/login") : context.go("/dashboard");
+  }
+
   @override
   void initState() {
     super.initState();
     checkPermissions();
     _checkToken();
+    _checkNotificationPayload();
+    DioProvider().setContext(context);
+
+    Future.delayed(
+      const Duration(seconds: 2),
+      () {
+        _authNavigate();
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(
-      const Duration(seconds: 2),
-      () {
-        (token == null) ? context.go("/login") : context.go("/dashboard");
-      },
-    );
-
     return Scaffold(
       body: Container(
         color: Colors.blueAccent,

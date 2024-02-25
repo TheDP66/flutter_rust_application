@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:InOut/core/constant/theme.dart';
-import 'package:InOut/core/services/dio_provider.dart';
 import 'package:InOut/core/services/go_router.dart';
 import 'package:InOut/injection.dart';
 import 'package:InOut/presentation/pages/error_screen.dart';
@@ -14,11 +11,11 @@ void main() async {
   try {
     WidgetsFlutterBinding.ensureInitialized();
 
-    log("Injecting...");
     await setup();
-    log("Inject complete!");
 
-    runApp(const MainApp());
+    runApp(
+      MainApp(),
+    );
   } catch (e) {
     runApp(const ErrorScreen());
   }
@@ -43,8 +40,6 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
-    DioProvider().setContext(context);
-
     return MaterialApp.router(
       themeMode: ThemeMode.system,
       theme: lightTheme,
