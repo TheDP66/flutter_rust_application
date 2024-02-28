@@ -22,7 +22,7 @@ class BackgroundChannel implements Channel {
       id, // id
       title, // title
       description: description, // description
-      importance: Importance.low, // importance must be at low or higher level
+      importance: Importance.high, // importance must be at low or higher level
       showBadge: true,
       enableVibration: true,
       playSound: true,
@@ -55,9 +55,9 @@ class BackgroundChannel implements Channel {
       vibrationPattern: vibrationPattern,
 
       channelShowBadge: true,
-      fullScreenIntent: true,
       icon: "@mipmap/ic_launcher",
-      ticker: "ticker",
+
+      tag: "bg_notif",
     );
 
     NotificationDetails platformChannelSpecifics = NotificationDetails(

@@ -8,7 +8,7 @@ class ChatChannel implements Channel {
   String get id => "fra_chat_channel";
 
   @override
-  int get foregroundId => 1;
+  int get foregroundId => 2;
 
   @override
   String get title => "Chat channel";

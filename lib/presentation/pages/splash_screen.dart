@@ -42,7 +42,6 @@ class _SplashScreenState extends State<SplashScreen> {
     checkPermissions();
     _checkToken();
     _checkNotificationPayload();
-    DioProvider().setContext(context);
 
     Future.delayed(
       const Duration(seconds: 2),
@@ -59,6 +58,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    DioProvider().setContext(context);
+
     return Scaffold(
       body: Container(
         color: Colors.blueAccent,

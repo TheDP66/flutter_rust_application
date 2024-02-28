@@ -24,7 +24,7 @@ class DashboardCardView extends StatelessWidget {
               name: barangs[index].name,
               price: barangs[index].price,
               stock: barangs[index].stock,
-              expiredDate: barangs[index].expiredAt,
+              expiredDate: barangs[index].expired_at,
             );
           },
         ),

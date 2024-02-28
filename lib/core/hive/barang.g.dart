@@ -20,7 +20,7 @@ class BarangHiveAdapter extends TypeAdapter<BarangHive> {
       name: fields[0] as String,
       price: fields[1] as int,
       stock: fields[2] as int,
-      expiredAt: fields[3] as String?,
+      expired_at: fields[3] as String?,
     );
   }
 
@@ -35,7 +35,7 @@ class BarangHiveAdapter extends TypeAdapter<BarangHive> {
       ..writeByte(2)
       ..write(obj.stock)
       ..writeByte(3)
-      ..write(obj.expiredAt);
+      ..write(obj.expired_at);
   }
 
   @override

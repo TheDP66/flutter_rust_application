@@ -11,7 +11,7 @@ class BarangLocalDataSource extends DataTableSource {
     return DataRow(cells: [
       DataCell(Text("${index + 1}")),
       DataCell(Text(_barangs[index].name!)),
-      DataCell(Text(_barangs[index].expiredAt.toString())),
+      DataCell(Text(_barangs[index].expired_at.toString())),
       DataCell(Text(_barangs[index].stock.toString())),
       DataCell(Text(_barangs[index].price.toString())),
     ]);

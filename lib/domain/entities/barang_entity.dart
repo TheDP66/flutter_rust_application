@@ -5,18 +5,18 @@ class BarangEntity extends Equatable {
   String? name;
   int? price;
   int? stock;
-  String? expiredAt;
-  String? createdAt;
-  String? updatedAt;
+  String? expired_at;
+  String? created_at;
+  String? updated_at;
 
   BarangEntity({
     this.id,
     this.name,
     this.price,
     this.stock,
-    this.expiredAt,
-    this.createdAt,
-    this.updatedAt,
+    this.expired_at,
+    this.created_at,
+    this.updated_at,
   });
 
   @override
@@ -25,8 +25,8 @@ class BarangEntity extends Equatable {
         name,
         price,
         stock,
-        expiredAt,
-        createdAt,
-        updatedAt,
+        expired_at,
+        created_at,
+        updated_at,
       ];
 }

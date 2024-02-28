@@ -7,9 +7,9 @@ class BarangModel extends BarangEntity {
           name: json['name'],
           price: json['price'],
           stock: json['stock'],
-          expiredAt: json['expiredAt'],
-          createdAt: json['createdAt'],
-          updatedAt: json['updatedAt'],
+          expired_at: json['expired_at'],
+          created_at: json['created_at'],
+          updated_at: json['updated_at'],
         );
 
   Map<String, dynamic> toJson() {
@@ -18,9 +18,9 @@ class BarangModel extends BarangEntity {
     data['name'] = name;
     data['price'] = price;
     data['stock'] = stock;
-    data['expiredAt'] = expiredAt;
-    data['createdAt'] = createdAt;
-    data['updatedAt'] = updatedAt;
+    data['expired_at'] = expired_at;
+    data['created_at'] = created_at;
+    data['updated_at'] = updated_at;
     return data;
   }
 
@@ -36,9 +36,9 @@ class BarangModel extends BarangEntity {
       name: name,
       price: price,
       stock: stock,
-      expiredAt: expiredAt,
-      createdAt: createdAt,
-      updatedAt: updatedAt,
+      expired_at: expired_at,
+      created_at: created_at,
+      updated_at: updated_at,
     );
   }
 }

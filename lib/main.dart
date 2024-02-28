@@ -13,9 +13,7 @@ void main() async {
 
     await setup();
 
-    runApp(
-      MainApp(),
-    );
+    runApp(const MainApp());
   } catch (e) {
     runApp(const ErrorScreen());
   }

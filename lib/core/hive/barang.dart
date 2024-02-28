@@ -6,7 +6,7 @@ class Barangs {
   late String name;
   late int price;
   late int stock;
-  late String? expiredAt;
+  late String? expired_at;
 }
 
 @HiveType(typeId: 0)
@@ -25,13 +25,13 @@ class BarangHive extends HiveObject implements Barangs {
 
   @HiveField(3)
   @override
-  String? expiredAt;
+  String? expired_at;
 
   BarangHive({
     required this.name,
     required this.price,
     required this.stock,
-    this.expiredAt,
+    this.expired_at,
   });
 
   Map<String, dynamic> toJson() {
@@ -39,7 +39,7 @@ class BarangHive extends HiveObject implements Barangs {
       'name': name,
       'price': price,
       'stock': stock,
-      'expiredAt': expiredAt,
+      'expired_at': expired_at == "" ? null : expired_at,
     };
   }
 

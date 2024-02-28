@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:InOut/core/channels/background_channel.dart';
 import 'package:InOut/core/resources/channel.dart';
 import 'package:InOut/core/resources/receive_notification.dart';
+import 'package:InOut/injection.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -18,17 +19,22 @@ final BehaviorSubject<ReceivedNotification> didReceiveLocalNotificationSubject =
     BehaviorSubject<ReceivedNotification>();
 
 const MethodChannel platform =
-    MethodChannel('dexterx.dev/flutter_local_notifications_example');
+    MethodChannel('com.inout.name/flutter_rust_application');
 
 Future<void> backgroundService() async {
   final channel = BackgroundChannel();
-  await channel.init();
+  channel.init();
 
   final service = FlutterBackgroundService();
 
   await service.configure(
     iosConfiguration: iosConfiguration,
     androidConfiguration: androidConfiguration(channel),
+  );
+
+  flutterLocalNotificationsPlugin.cancel(
+    channel.foregroundId,
+    tag: 'bg_notif',
   );
 
   service.startService();
@@ -40,6 +46,7 @@ IosConfiguration iosConfiguration = IosConfiguration(
   onBackground: onIosBackground,
 );
 
+@pragma('vm:entry-point')
 Future<bool> onIosBackground(ServiceInstance service) async {
   WidgetsFlutterBinding.ensureInitialized();
   DartPluginRegistrant.ensureInitialized();
@@ -75,6 +82,7 @@ AndroidConfiguration androidConfiguration(
   );
 }
 
+@pragma('vm:entry-point')
 Future<void> onStart(ServiceInstance service) async {
   // Only available for flutter 3.0.0 and later
   DartPluginRegistrant.ensureInitialized();
@@ -97,25 +105,23 @@ Future<void> onStart(ServiceInstance service) async {
   final channel = BackgroundChannel();
 
   // bring to foreground
-  Timer.periodic(const Duration(seconds: 10), (timer) async {
+  Timer.periodic(const Duration(seconds: 5), (timer) async {
     if (service is AndroidServiceInstance) {
       final result = await Connectivity().checkConnectivity();
 
-      if (await service.isForegroundService()) {
-        if (result != tempConnection) {
-          tempConnection = result;
+      if (result != tempConnection) {
+        tempConnection = result;
 
-          if (result != ConnectivityResult.none) {
-            channel.sendNotification(
-              header: "Connected to internet",
-              content: "Sync offline barang now.",
-            );
-          } else {
-            channel.sendNotification(
-              header: "Disconnected from internet",
-              content: "Offline mode on.",
-            );
-          }
+        if (result != ConnectivityResult.none) {
+          channel.sendNotification(
+            header: "Connected to internet",
+            content: "Sync offline barang now.",
+          );
+        } else {
+          channel.sendNotification(
+            header: "Disconnected from internet",
+            content: "Offline mode on.",
+          );
         }
 
         // if you using custom notification, comment this

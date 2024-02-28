@@ -116,7 +116,7 @@ Widget buildReport(List<BarangEntity> barangs) {
 
     return [
       barang.name,
-      barang.expiredAt ?? "-",
+      barang.expired_at ?? "-",
       barang.stock,
       Formatter.price(barang.price!),
       Formatter.price(total),
@@ -146,9 +146,9 @@ Widget buildSummary(List<BarangEntity> barangs, DateTime currentDate) {
       .reduce((barang1, barang2) => barang1 + barang2);
 
   final expTotal = barangs.map((barang) {
-    if (barang.expiredAt == null) return 0;
+    if (barang.expired_at == null) return 0;
 
-    DateTime expDate = DateTime.parse(barang.expiredAt!);
+    DateTime expDate = DateTime.parse(barang.expired_at!);
 
     // exp date has passed
     if (currentDate.isAfter(expDate)) {

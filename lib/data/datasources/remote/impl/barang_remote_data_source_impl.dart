@@ -30,7 +30,7 @@ class BarangRemoteDataSourceImpl implements BarangRemoteDataSource {
         'name': params.name,
         'price': params.price,
         'stock': params.stock,
-        'expired_at': params.expiredAt!.isEmpty ? null : params.expiredAt,
+        'expired_at': params.expired_at!.isEmpty ? null : params.expired_at,
       };
 
       final response = await _dio.post("/api/barang", data: request);

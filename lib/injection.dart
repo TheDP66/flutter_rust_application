@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:InOut/core/hive/barang.dart';
-import 'package:InOut/core/services/background_service.dart';
 import 'package:InOut/core/services/dio_provider.dart';
 import 'package:InOut/data/datasources/remote/auth_remote_data_source.dart';
 import 'package:InOut/data/datasources/remote/barang_remote_data_source.dart';
@@ -30,8 +29,14 @@ import 'package:InOut/presentation/bloc/login_screen/login_screen_bloc.dart';
 import 'package:InOut/presentation/bloc/package_screen/package_screen_bloc.dart';
 import 'package:InOut/presentation/bloc/register_screen/register_screen_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
+import 'core/services/background_service.dart';
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
 final inject = GetIt.instance;
 

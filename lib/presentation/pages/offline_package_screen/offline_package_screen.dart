@@ -166,7 +166,7 @@ class _OfflinePackageScreenState extends State<OfflinePackageScreen> {
                       name: nameController.text,
                       price: int.parse(priceController.text),
                       stock: int.parse(stockController.text),
-                      expiredAt: expiredAtController.text,
+                      expired_at: expiredAtController.text,
                     );
 
                     final box = HiveBoxes.getBarangs();
