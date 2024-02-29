@@ -118,6 +118,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: "fab-explore",
         onPressed: () {
           context.push("/offline-package");
         },

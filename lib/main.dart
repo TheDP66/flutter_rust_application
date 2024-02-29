@@ -5,8 +5,6 @@ import 'package:InOut/presentation/pages/error_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-
 void main() async {
   try {
     WidgetsFlutterBinding.ensureInitialized();

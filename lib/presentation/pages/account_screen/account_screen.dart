@@ -82,57 +82,55 @@ class _AccountScreenState extends State<AccountScreen> {
                 ),
                 SizedBox(
                   width: double.infinity,
-                  child: Expanded(
-                    child: BlocConsumer<AccountScreenBloc, AccountScreenState>(
-                      listener: (context, state) {
-                        if (state is LogoutLoaded) {
-                          _logoutUser(context);
-                        }
+                  child: BlocConsumer<AccountScreenBloc, AccountScreenState>(
+                    listener: (context, state) {
+                      if (state is LogoutLoaded) {
+                        _logoutUser(context);
+                      }
 
-                        if (state is LogoutError) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              behavior: SnackBarBehavior.floating,
-                              margin: const EdgeInsets.all(20),
-                              content: Text(state.message),
-                            ),
-                          );
-
-                          _logoutUser(context);
-                        }
-                      },
-                      builder: (context, state) {
-                        if (state is LogoutLoading) {
-                          return TextButton(
-                            onPressed: () {},
-                            child: const CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                Colors.grey,
-                              ),
-                            ),
-                          );
-                        }
-
-                        return TextButton.icon(
-                          style: TextButton.styleFrom(
-                            iconColor: Colors.red[400],
-                            foregroundColor: Colors.red[400],
+                      if (state is LogoutError) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            behavior: SnackBarBehavior.floating,
+                            margin: const EdgeInsets.all(20),
+                            content: Text(state.message),
                           ),
-                          onPressed: () {
-                            BlocProvider.of<AccountScreenBloc>(context).add(
-                              LogoutUser(),
-                            );
-                          },
-                          icon: const Icon(Icons.logout),
-                          label: Text(
-                            "Log out",
-                            style: TextStyle(
-                              color: Colors.red[400],
+                        );
+
+                        _logoutUser(context);
+                      }
+                    },
+                    builder: (context, state) {
+                      if (state is LogoutLoading) {
+                        return TextButton(
+                          onPressed: () {},
+                          child: const CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Colors.grey,
                             ),
                           ),
                         );
-                      },
-                    ),
+                      }
+
+                      return TextButton.icon(
+                        style: TextButton.styleFrom(
+                          iconColor: Colors.red[400],
+                          foregroundColor: Colors.red[400],
+                        ),
+                        onPressed: () {
+                          BlocProvider.of<AccountScreenBloc>(context).add(
+                            LogoutUser(),
+                          );
+                        },
+                        icon: const Icon(Icons.logout),
+                        label: Text(
+                          "Log out",
+                          style: TextStyle(
+                            color: Colors.red[400],
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ],

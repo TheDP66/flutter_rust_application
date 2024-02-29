@@ -22,7 +22,6 @@ Future<String?> notificationService() async {
   // ? check if notification launch app
   final NotificationAppLaunchDetails? notificationAppLaunchDetails =
       await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
-  log("notifiction launch app: $notificationAppLaunchDetails");
 
   await flutterLocalNotificationsPlugin.initialize(
     const InitializationSettings(

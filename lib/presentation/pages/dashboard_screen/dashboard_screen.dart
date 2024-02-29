@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:InOut/core/params/barang_params.dart';
 import 'package:InOut/domain/entities/barang_entity.dart';
 import 'package:InOut/injection.dart';
@@ -27,12 +25,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
   void dispose() {
     searchController.dispose();
     super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    log("masukk");
   }
 
   @override
@@ -142,6 +134,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: "fab-dashboard",
         onPressed: () async {
           await context.push("/package");
 

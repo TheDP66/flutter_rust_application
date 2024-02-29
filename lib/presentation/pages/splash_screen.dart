@@ -58,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    DioProvider().setContext(context);
+    DioProvider();
 
     return Scaffold(
       body: Container(

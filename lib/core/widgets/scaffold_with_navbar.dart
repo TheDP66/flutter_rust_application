@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:InOut/core/resources/receive_notification.dart';
 import 'package:InOut/core/services/background_service.dart';
 import 'package:InOut/core/services/notification_service.dart';
@@ -56,8 +54,6 @@ class _ScaffoldWithNavbarState extends State<ScaffoldWithNavbar> {
 
   void _configureSelectNotificationSubject() {
     selectNotificationSubject.stream.listen((String? payload) async {
-      log(payload ?? "blank");
-
       await context.push("/profile", extra: {
         "payload": payload,
       });

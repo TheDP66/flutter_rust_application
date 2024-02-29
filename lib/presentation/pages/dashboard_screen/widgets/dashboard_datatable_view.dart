@@ -49,7 +49,7 @@ class _DashboardDatatableViewState extends State<DashboardDatatableView> {
           ),
           DataColumn2(
             label: Text("Exp. Date"),
-            fixedWidth: 50,
+            fixedWidth: 150,
           ),
           DataColumn2(
             label: Text("Qty"),

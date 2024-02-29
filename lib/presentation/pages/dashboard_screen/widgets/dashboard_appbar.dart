@@ -2,7 +2,6 @@ import 'package:InOut/core/widgets/cached_image_auth.dart';
 import 'package:InOut/presentation/bloc/dashboard_screen/dashboard_screen_bloc.dart';
 import 'package:InOut/presentation/bloc/dashboard_screen/dashboard_screen_event.dart';
 import 'package:InOut/presentation/bloc/dashboard_screen/dashboard_screen_state.dart';
-import 'package:InOut/presentation/pages/account_screen/account_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -93,12 +92,9 @@ class DashboardAppBar extends StatelessWidget {
               right: 28,
             ),
             child: Center(
-              child: Hero(
-                tag: "icon-tag",
-                child: Image.asset(
-                  "assets/images/icon.png",
-                  height: 85,
-                ),
+              child: Image.asset(
+                "assets/images/icon.png",
+                height: 85,
               ),
             ),
           ),
