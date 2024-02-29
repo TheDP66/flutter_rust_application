@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart' show kIsWeb;
 
-String baseUrl = kIsWeb
-    ? "http://localhost:8090"
-    : "https://dd3a-103-50-131-42.ngrok-free.app";
+String baseUrl =
+    kIsWeb ? "http://localhost:8090" : "http://103.30.194.176:8090";
