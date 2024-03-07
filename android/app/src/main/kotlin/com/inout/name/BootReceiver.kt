@@ -7,8 +7,7 @@ import android.content.Intent;
 
 class BootReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-            Log.i("MASUK", "Info message")
-        
+        // ? Immediatly run app on BACKGROUND after reboot
         if (intent.action == Intent.ACTION_BOOT_COMPLETED) {
             val i = Intent(context, MainActivity::class.java)
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
