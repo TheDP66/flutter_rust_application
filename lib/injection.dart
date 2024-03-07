@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:InOut/core/hive/barang.dart';
 import 'package:InOut/core/services/dio_provider.dart';
+import 'package:InOut/core/services/path_provider.dart';
 import 'package:InOut/data/datasources/remote/auth_remote_data_source.dart';
 import 'package:InOut/data/datasources/remote/barang_remote_data_source.dart';
 import 'package:InOut/data/datasources/remote/impl/auth_remote_data_source_impl.dart';
@@ -49,6 +50,9 @@ setup() async {
 
     // flutter_background_service
     await backgroundService();
+
+    // path_provider
+    await registerPathProvider();
 
     // hive
     await Hive.initFlutter();

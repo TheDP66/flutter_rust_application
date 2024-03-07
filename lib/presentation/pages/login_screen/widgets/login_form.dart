@@ -1,4 +1,5 @@
 import 'package:InOut/core/params/auth_params.dart';
+import 'package:InOut/core/utils/biometric.dart';
 import 'package:InOut/core/utils/validator.dart';
 import 'package:InOut/core/widgets/button_full_width.dart';
 import 'package:InOut/core/widgets/text_field_form.dart';
@@ -11,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:local_auth/error_codes.dart' as auth_error;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginForm extends StatefulWidget {
@@ -134,18 +136,51 @@ class _LoginFormState extends State<LoginForm> {
                     }
 
                     return ButtonFullWidth(
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          TextInput.finishAutofillContext();
+                          try {
+                            final authenticated = await getBiometricPermission(
+                              "Please authenticate to login",
+                            );
 
-                          BlocProvider.of<LoginScreenBloc>(context).add(
-                            FetchLoginUser(
-                              LoginUserParams(
-                                email: emailController.text,
-                                password: passwordController.text,
-                              ),
-                            ),
-                          );
+                            if (authenticated) {
+                              TextInput.finishAutofillContext();
+
+                              BlocProvider.of<LoginScreenBloc>(context).add(
+                                FetchLoginUser(
+                                  LoginUserParams(
+                                    email: emailController.text,
+                                    password: passwordController.text,
+                                  ),
+                                ),
+                              );
+                            }
+                          } on PlatformException catch (e) {
+                            if (e.code == auth_error.notEnrolled) {
+                              if (_formKey.currentState!.validate()) {
+                                TextInput.finishAutofillContext();
+
+                                BlocProvider.of<LoginScreenBloc>(context).add(
+                                  FetchLoginUser(
+                                    LoginUserParams(
+                                      email: emailController.text,
+                                      password: passwordController.text,
+                                    ),
+                                  ),
+                                );
+                              }
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  behavior: SnackBarBehavior.floating,
+                                  margin: EdgeInsets.all(20),
+                                  content: Text(
+                                    "Can't login, please authenticate!",
+                                  ),
+                                ),
+                              );
+                            }
+                          }
                         }
                       },
                       style: ElevatedButton.styleFrom(

@@ -1,6 +1,6 @@
 package com.inout.name
 
-import io.flutter.embedding.android.FlutterActivity
+import io.flutter.embedding.android.FlutterFragmentActivity
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
@@ -8,7 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-class MainActivity: FlutterActivity() {
+class MainActivity: FlutterFragmentActivity () {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

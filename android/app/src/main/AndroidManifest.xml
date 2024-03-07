@@ -17,18 +17,19 @@
     <!-- Permissions options for the `notification` group -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
-
-    <!-- Permissions option fo the `alarm` group -->
     <uses-permission android:name="android.permission.SCHEULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
 
-    <!-- Permissions option fo the `boot` group -->
+    <!-- Permissions option fo the `system` group -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <!-- Permissions option fo the `foreground` group -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" />
+
+    <!-- Permissions opetion for the `security` group -->
+    <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
 
     <application
         android:label="InOut"
