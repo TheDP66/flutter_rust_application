@@ -20,6 +20,7 @@ Future<bool> getBiometricPermission(String localizedReason) async {
     return didAuthenticate;
   } else {
     throw Exception(
-        "Biometric authentication is not available on this device.");
+      "Biometric authentication is not available on this device.",
+    );
   }
 }

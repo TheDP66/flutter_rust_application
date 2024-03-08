@@ -51,4 +51,19 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       throw Exception(handleError(e));
     }
   }
+
+  @override
+  Future<Map<String, dynamic>> refreshTokenRemote(params) async {
+    try {
+      Map<String, dynamic> request = {
+        'refresh_token': params.refreshToken,
+      };
+
+      final response = await _dio.get("/auth/refresh", data: request);
+
+      return response.data;
+    } catch (e) {
+      throw Exception(handleError(e));
+    }
+  }
 }

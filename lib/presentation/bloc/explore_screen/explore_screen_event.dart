@@ -9,3 +9,7 @@ class SyncBarang extends ExploreScreenEvent {
 
   SyncBarang(this.params);
 }
+
+class FetchMeUser extends ExploreScreenEvent {
+  FetchMeUser();
+}

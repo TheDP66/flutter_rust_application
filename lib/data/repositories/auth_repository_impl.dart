@@ -25,7 +25,8 @@ class AuthRepositoryImpl implements AuthRepository {
       );
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString("token", tokenEntity.token!);
+      prefs.setString("refresh_token", tokenEntity.refresh_token!);
+      prefs.setString("access_token", tokenEntity.access_token!);
 
       return DataSuccess(tokenEntity);
     } catch (e) {
@@ -47,7 +48,8 @@ class AuthRepositoryImpl implements AuthRepository {
       );
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString("token", tokenEntity.token!);
+      prefs.setString("refresh_token", tokenEntity.refresh_token!);
+      prefs.setString("access_token", tokenEntity.access_token!);
 
       return DataSuccess(tokenEntity);
     } catch (e) {
@@ -63,9 +65,32 @@ class AuthRepositoryImpl implements AuthRepository {
       String message = response["message"];
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.remove("token");
+      prefs.remove("refresh_token");
+      prefs.remove("access_token");
 
       return DataSuccess(message);
+    } catch (e) {
+      return DataFailed(e.toString());
+    }
+  }
+
+  @override
+  Future<DataState<TokenEntity>> refreshTokenRepository(
+      RefreshTokenParams params) async {
+    try {
+      Map<String, dynamic> response = await remoteDataSource.refreshTokenRemote(
+        params,
+      );
+
+      TokenEntity tokenEntity = TokenModel.fromJson(
+        response["data"],
+      );
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString("refresh_token", tokenEntity.refresh_token!);
+      prefs.setString("access_token", tokenEntity.access_token!);
+
+      return DataSuccess(tokenEntity);
     } catch (e) {
       return DataFailed(e.toString());
     }

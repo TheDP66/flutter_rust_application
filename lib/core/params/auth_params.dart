@@ -21,3 +21,11 @@ class LoginUserParams {
     required this.password,
   });
 }
+
+class RefreshTokenParams {
+  String refreshToken;
+
+  RefreshTokenParams({
+    required this.refreshToken,
+  });
+}

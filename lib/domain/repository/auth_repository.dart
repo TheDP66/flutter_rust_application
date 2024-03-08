@@ -12,4 +12,8 @@ abstract class AuthRepository {
   );
 
   Future<DataState<String>> logoutUserRepository();
+
+  Future<DataState<TokenEntity>> refreshTokenRepository(
+    RefreshTokenParams params,
+  );
 }

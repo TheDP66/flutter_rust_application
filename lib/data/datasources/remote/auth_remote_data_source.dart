@@ -10,4 +10,8 @@ abstract class AuthRemoteDataSource {
   );
 
   Future<Map<String, dynamic>> logoutUserRemote();
+
+  Future<Map<String, dynamic>> refreshTokenRemote(
+    RefreshTokenParams params,
+  );
 }

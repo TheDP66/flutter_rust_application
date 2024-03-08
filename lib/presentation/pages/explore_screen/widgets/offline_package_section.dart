@@ -75,8 +75,6 @@ class _OfflinePackageSectionState extends State<OfflinePackageSection> {
                             var jsonBarang =
                                 BarangHive.jsonFromList(listBarang);
 
-                            print(jsonBarang);
-
                             BlocProvider.of<ExploreScreenBloc>(context).add(
                               SyncBarang(
                                 SyncBarangParams(

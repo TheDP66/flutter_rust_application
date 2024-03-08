@@ -33,7 +33,7 @@ class _CachedImageAuthState extends State<CachedImageAuth> {
     prefs = await SharedPreferences.getInstance();
 
     setState(() {
-      token = prefs.getString("token")!;
+      token = prefs.getString("access_token")!;
     });
   }
 
@@ -53,7 +53,9 @@ class _CachedImageAuthState extends State<CachedImageAuth> {
             fit: BoxFit.cover,
             imageUrl: "$baseUrl/storage/img/${widget.photo}",
             errorWidget: widget.errorWidget,
-            httpHeaders: {"Cookie": "token=${prefs.getString("token")!}"},
+            httpHeaders: {
+              "Cookie": "access_token=${prefs.getString("access_token")!}"
+            },
             progressIndicatorBuilder: (context, url, progress) => Center(
               child: SizedBox(
                 width: widget.size,
