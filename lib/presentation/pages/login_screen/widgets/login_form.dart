@@ -59,9 +59,9 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => inject<LoginScreenBloc>(),
-      child: AutofillGroup(
-        child: Form(
-          key: _formKey,
+      child: Form(
+        key: _formKey,
+        child: AutofillGroup(
           child: Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 12,

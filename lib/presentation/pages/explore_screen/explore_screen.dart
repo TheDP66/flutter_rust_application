@@ -5,6 +5,8 @@ import 'package:InOut/core/hive/barang.dart';
 import 'package:InOut/core/services/hive_boxes.dart';
 import 'package:InOut/injection.dart';
 import 'package:InOut/presentation/bloc/explore_screen/explore_screen_bloc.dart';
+import 'package:InOut/presentation/bloc/explore_screen/explore_screen_event.dart';
+import 'package:InOut/presentation/pages/explore_screen/widgets/explore_drawer.dart';
 import 'package:InOut/presentation/pages/explore_screen/widgets/offline_package_section.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
@@ -83,16 +85,44 @@ class _ExploreScreenState extends State<ExploreScreen> {
       });
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Connection Status: ${(_connectionStatus != ConnectivityResult.none) ? "Online" : "Offline"}',
+    return BlocProvider(
+      create: (context) => inject<ExploreScreenBloc>()
+        ..add(
+          FetchMeUser(),
         ),
-        centerTitle: true,
-      ),
-      body: BlocProvider(
-        create: (context) => inject<ExploreScreenBloc>(),
-        child: SingleChildScrollView(
+      child: Scaffold(
+        appBar: AppBar(
+          actions: [
+            Tooltip(
+              triggerMode: TooltipTriggerMode.tap,
+              message: _connectionStatus != ConnectivityResult.none
+                  ? "Online"
+                  : "Offline",
+              child: Container(
+                margin: const EdgeInsets.only(right: 10),
+                width: 23,
+                height: 23,
+                decoration: BoxDecoration(
+                  color: _connectionStatus != ConnectivityResult.none
+                      ? Colors.green
+                      : Colors.red.shade600,
+                  borderRadius: BorderRadius.circular(3),
+                ),
+              ),
+            ),
+          ],
+          title: const Text(
+            'Explore page',
+            style: TextStyle(
+              fontSize: 20,
+            ),
+          ),
+          centerTitle: true,
+        ),
+        drawer: const Drawer(
+          child: ExploreDrawer(),
+        ),
+        body: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.only(
               top: 14,
@@ -116,15 +146,15 @@ class _ExploreScreenState extends State<ExploreScreen> {
             ),
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        heroTag: "fab-explore",
-        onPressed: () {
-          context.push("/offline-package");
-        },
-        child: Icon(
-          Icons.add,
-          color: colorScheme.secondaryContainer,
+        floatingActionButton: FloatingActionButton(
+          heroTag: "fab-explore",
+          onPressed: () {
+            context.push("/offline-package");
+          },
+          child: Icon(
+            Icons.add,
+            color: colorScheme.secondaryContainer,
+          ),
         ),
       ),
     );

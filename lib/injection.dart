@@ -147,6 +147,7 @@ setup() async {
     inject.registerFactory(
       () => ExploreScreenBloc(
         syncBarangUseCase: inject(),
+        meUserUseCase: inject(),
       ),
     );
   } catch (e) {
