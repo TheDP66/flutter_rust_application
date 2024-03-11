@@ -17,6 +17,7 @@ dependencies:
   dio_cookie_manager: ^3.1.1
   equatable: ^2.0.5 # json converter
   file_picker: ^6.1.1
+  fl_chart: ^0.66.2 # chart
   flutter:
     sdk: flutter
   flutter_background_service: ^4.0.0 # background service
@@ -29,6 +30,7 @@ dependencies:
   go_router: ^13.2.0 # router
   hive: ^2.2.3 # local database (more secure)
   hive_flutter: ^1.1.0
+  home_widget: ^0.4.1 # home widget
   intl: ^0.17.0
   local_auth: ^2.1.8 # biometric
   open_filex: ^4.4.0 # open local file
