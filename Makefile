@@ -6,3 +6,7 @@ build_runner:
 
 build-apk:
 	flutter build apk --target-platform android-arm64 --analyze-size --split-per-abi
+
+clean-run:
+	flutter clean
+	flutter run

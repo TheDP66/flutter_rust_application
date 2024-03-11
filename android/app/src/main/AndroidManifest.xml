@@ -31,6 +31,11 @@
     <!-- Permissions opetion for the `security` group -->
     <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
 
+    <!-- Permissions opetion for the `location` group -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
     <application
         android:label="InOut"
         android:name="${applicationName}"
