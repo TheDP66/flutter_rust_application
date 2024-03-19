@@ -9,14 +9,23 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
 
 class ReportPdfApi {
-  static Future<File> generate(String title, Report report) async {
+  static Future<File> generate(
+    String title,
+    Report report,
+    ByteData signature,
+  ) async {
     final pdf = pw.Document();
 
     final currenDate = DateTime.now();
 
+    // Logo
     final imgLogo = await rootBundle.load('assets/images/icon.png');
     final imageBytesLogo = imgLogo.buffer.asUint8List();
     final logo = pw.Image(pw.MemoryImage(imageBytesLogo));
+
+    // Signature
+    final signatureBytesLogo = signature.buffer.asUint8List();
+    final sign = pw.Image(pw.MemoryImage(signatureBytesLogo));
 
     var appTheme = ThemeData.withFont(
       base: Font.ttf(await rootBundle.load("assets/fonts/Poppins-Regular.ttf")),
@@ -35,6 +44,8 @@ class ReportPdfApi {
           buildReport(report.barangs),
           Divider(),
           buildSummary(report.barangs, currenDate),
+          SizedBox(height: 1 * PdfPageFormat.cm),
+          buildSignature(report.reportInfo.user, sign),
         ],
         footer: (context) => buildFooter(),
       ),

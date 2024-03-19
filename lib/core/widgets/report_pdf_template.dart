@@ -224,6 +224,32 @@ Widget buildText({
   );
 }
 
+Widget buildSignature(UserEntity user, Image signature) {
+  return pw.Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      pw.SizedBox(),
+      pw.Container(
+        width: 150,
+        height: 200,
+        child: pw.Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            pw.Container(
+              height: 150,
+              width: 150,
+              child: signature,
+            ),
+            pw.Divider(),
+            pw.Text(user.name!),
+          ],
+        ),
+      ),
+    ],
+  );
+}
+
 Widget buildFooter() {
   return Text("");
 }

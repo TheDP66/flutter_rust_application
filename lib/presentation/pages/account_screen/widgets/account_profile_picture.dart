@@ -44,13 +44,15 @@ class _AccountProfilePictureState extends State<AccountProfilePicture> {
 
   void _photoSheet(BuildContext context) async {
     showModalBottomSheet(
+      useRootNavigator: true,
+      useSafeArea: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(16),
         ),
       ),
-      context: context,
       showDragHandle: true,
+      context: context,
       builder: (_) => AccountBottomSheet(
         items: [
           ListItem(
