@@ -1,3 +1,4 @@
+import 'package:InOut/core/permissions/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
@@ -22,25 +23,30 @@ class ScannerErrorWidget extends StatelessWidget {
         break;
     }
 
-    return ColoredBox(
-      color: Colors.black,
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(bottom: 16),
-              child: Icon(Icons.error, color: Colors.white),
-            ),
-            Text(
-              errorMessage,
-              style: const TextStyle(color: Colors.white),
-            ),
-            Text(
-              error.errorDetails?.message ?? '',
-              style: const TextStyle(color: Colors.white),
-            ),
-          ],
+    return InkWell(
+      onTap: () async {
+        await cameraPermission();
+      },
+      child: ColoredBox(
+        color: Colors.black,
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(bottom: 16),
+                child: Icon(Icons.error, color: Colors.white),
+              ),
+              Text(
+                errorMessage,
+                style: const TextStyle(color: Colors.white),
+              ),
+              Text(
+                error.errorDetails?.message ?? '',
+                style: const TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
         ),
       ),
     );

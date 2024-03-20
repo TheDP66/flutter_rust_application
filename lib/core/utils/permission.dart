@@ -1,3 +1,4 @@
+import 'package:InOut/core/permissions/camera.dart';
 import 'package:InOut/core/permissions/external_storage.dart';
 import 'package:InOut/core/permissions/notification_storage.dart';
 import 'package:InOut/core/permissions/photo.dart';
@@ -9,4 +10,5 @@ Future<void> checkPermissions() async {
   await externalStoragePermission();
   await notificationPermission();
   await scheduleAlarmPermission();
+  await cameraPermission();
 }

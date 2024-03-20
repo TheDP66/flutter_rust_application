@@ -27,4 +27,10 @@ extension ExtString on String {
     final numberRegExp = RegExp(r"^[0-9]+$");
     return numberRegExp.hasMatch(this);
   }
+
+  bool get validUrl {
+    final urlRegExp = RegExp(
+        r'^((?:.|\n)*?)((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?)');
+    return urlRegExp.hasMatch(this);
+  }
 }
