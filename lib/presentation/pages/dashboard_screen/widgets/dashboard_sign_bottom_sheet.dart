@@ -30,10 +30,13 @@ class _DashboardSignBottomSheetState extends State<DashboardSignBottomSheet> {
   final _keySignPad = GlobalKey<SfSignaturePadState>();
   var signed = false;
 
-  void _generateOpenPdf(String title, Report report, ByteData signature) async {
+  void _generateOpenPdf(BuildContext context, String title, Report report,
+      ByteData signature) async {
     final pdfFile = await ReportPdfApi.generate(title, report, signature);
 
     PdfApi.openFile(pdfFile);
+
+    Navigator.pop(context);
   }
 
   @override
@@ -43,7 +46,7 @@ class _DashboardSignBottomSheetState extends State<DashboardSignBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 500,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -83,6 +86,7 @@ class _DashboardSignBottomSheetState extends State<DashboardSignBottomSheet> {
           SfSignaturePad(
             key: _keySignPad,
             backgroundColor: Colors.white,
+            strokeColor: Colors.black,
             maximumStrokeWidth: 5,
             minimumStrokeWidth: 5,
             onDraw: (offset, datetime) {},
@@ -126,7 +130,7 @@ class _DashboardSignBottomSheetState extends State<DashboardSignBottomSheet> {
                   barangs: widget.barangs,
                 );
 
-                _generateOpenPdf(title, report, signature!);
+                _generateOpenPdf(context, title, report, signature!);
               },
               child: Text("Download pdf"),
             ),

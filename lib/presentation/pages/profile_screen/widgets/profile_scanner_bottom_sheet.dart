@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:InOut/core/permissions/camera.dart';
 import 'package:InOut/core/utils/validator.dart';
 import 'package:InOut/core/widgets/scanner_error_widget.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +26,6 @@ class _ProfileScannnerState extends State<ProfileScannerBottomSheet> {
   void initState() {
     super.initState();
     cameraController.start();
-    cameraPermission();
   }
 
   @override
@@ -56,13 +54,8 @@ class _ProfileScannnerState extends State<ProfileScannerBottomSheet> {
                     fit: BoxFit.contain,
                     controller: cameraController,
                     placeholderBuilder: (context, _) {
-                      return InkWell(
-                        onTap: () async {
-                          await cameraPermission();
-                        },
-                        child: const ColoredBox(
-                          color: Colors.black,
-                        ),
+                      return const ColoredBox(
+                        color: Colors.black,
                       );
                     },
                     errorBuilder: (context, error, child) {
