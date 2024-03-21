@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'dart:ui';
 
+import 'package:InOut/core/permissions/external_storage.dart';
 import 'package:InOut/core/services/pdf_api.dart';
 import 'package:InOut/core/utils/formatter.dart';
 import 'package:InOut/core/utils/report_pdf_api.dart';
@@ -33,7 +34,6 @@ class _DashboardSignBottomSheetState extends State<DashboardSignBottomSheet> {
   void _generateOpenPdf(BuildContext context, String title, Report report,
       ByteData signature) async {
     final pdfFile = await ReportPdfApi.generate(title, report, signature);
-
     PdfApi.openFile(pdfFile);
 
     Navigator.pop(context);
@@ -129,6 +129,8 @@ class _DashboardSignBottomSheetState extends State<DashboardSignBottomSheet> {
                   ),
                   barangs: widget.barangs,
                 );
+
+                await externalStoragePermission();
 
                 _generateOpenPdf(context, title, report, signature!);
               },
