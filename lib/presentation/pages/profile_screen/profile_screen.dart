@@ -1,4 +1,5 @@
 import 'package:InOut/presentation/pages/profile_screen/widgets/card_location.dart';
+import 'package:InOut/presentation/pages/profile_screen/widgets/profile_employee.dart';
 import 'package:InOut/presentation/pages/profile_screen/widgets/profile_scanner_button.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +24,8 @@ class ProfileScreen extends StatelessWidget {
             CardLocation(),
             SizedBox(height: 21),
             ProfileScannerButton(),
+            SizedBox(height: 21),
+            ProfileEmployee(),
             // Container(
             //   height: 500,
             //   child: ProfileScannner(),

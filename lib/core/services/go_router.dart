@@ -1,5 +1,6 @@
 import 'package:InOut/core/widgets/scaffold_with_navbar.dart';
 import 'package:InOut/presentation/pages/account_screen/account_screen.dart';
+import 'package:InOut/presentation/pages/attendance_screen/attendance_screen.dart';
 import 'package:InOut/presentation/pages/dashboard_screen/dashboard_screen.dart';
 import 'package:InOut/presentation/pages/explore_screen/explore_screen.dart';
 import 'package:InOut/presentation/pages/login_screen/login_screen.dart';
@@ -86,6 +87,13 @@ final _routes = <RouteBase>[
     path: "/account",
     builder: (BuildContext context, GoRouterState state) {
       return const AccountScreen();
+    },
+  ),
+  GoRoute(
+    name: "attendance",
+    path: "/attendance",
+    builder: (BuildContext context, GoRouterState state) {
+      return const AttendanceScreen();
     },
   ),
   GoRoute(

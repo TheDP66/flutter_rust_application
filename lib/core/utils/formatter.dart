@@ -16,4 +16,18 @@ class Formatter {
 
     return outputFormat.format(date).replaceAll("/", "-");
   }
+
+  static monthDate(DateTime date) {
+    final outputFormat = DateFormat('MMM d');
+
+    return outputFormat.format(date).replaceAll("/", "-");
+  }
+
+  static time(DateTime date) {
+    // ? Hm -> 13:27
+    // ? jm -> 1:27 PM
+    final outputFormat = DateFormat('Hm');
+
+    return outputFormat.format(date).replaceAll("/", "-");
+  }
 }
