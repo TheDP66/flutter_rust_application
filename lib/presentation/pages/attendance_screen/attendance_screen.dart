@@ -4,6 +4,8 @@ import 'package:InOut/core/utils/formatter.dart';
 import 'package:InOut/presentation/pages/attendance_screen/widgets/attendance_map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 
 class AttendanceScreen extends StatefulWidget {
   const AttendanceScreen({super.key});
@@ -20,6 +22,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
   var companyRadius = 10.0;
 
   var oldLocation = GeoPoint(latitude: 0, longitude: 0);
+  Placemark placemark = Placemark();
 
   final mapController = MapController(
     initPosition: GeoPoint(
@@ -94,6 +97,41 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
     return distance <= radius;
   }
 
+  void updateUserLocation() async {
+    Position position = await Geolocator.getCurrentPosition();
+    var lat = position.latitude;
+    var long = position.longitude;
+
+    List<Placemark> placemarks = await placemarkFromCoordinates(lat, long);
+
+    var userLocation = GeoPoint(
+      latitude: lat,
+      longitude: long,
+    );
+
+    await mapController.changeLocationMarker(
+      oldLocation: oldLocation,
+      newLocation: userLocation,
+      iconAnchor: IconAnchor(
+        anchor: Anchor.top,
+      ),
+      markerIcon: const MarkerIcon(
+        icon: Icon(
+          Icons.location_pin,
+          color: Colors.red,
+          size: 48,
+        ),
+      ),
+    );
+
+    await mapController.goToLocation(userLocation);
+
+    setState(() {
+      oldLocation = userLocation;
+      placemark = placemarks[0];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -106,6 +144,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
       body: Padding(
         padding: const EdgeInsets.all(21),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(15),
@@ -116,11 +155,13 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                   companyRadius: companyRadius,
                   mapController: mapController,
                   oldLocation: oldLocation,
+                  updateUserLocation: () => updateUserLocation(),
                 ),
               ),
             ),
             const SizedBox(height: 28),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 detailAttendance("Date", Formatter.monthDate(DateTime.now())),
                 const SizedBox(width: 20),
@@ -129,6 +170,32 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
             ),
             const SizedBox(height: 7),
             const Divider(),
+            const SizedBox(height: 7),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                detailAttendance(
+                    "Administrative area", placemark.administrativeArea ?? ""),
+                const SizedBox(width: 20),
+                detailAttendance("Subadministrative area",
+                    placemark.subAdministrativeArea ?? ""),
+              ],
+            ),
+            const SizedBox(height: 7),
+            const Divider(),
+            const SizedBox(height: 7),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                detailAttendance("Locality", placemark.locality ?? ""),
+                const SizedBox(width: 20),
+                detailAttendance("Postal code", placemark.postalCode ?? ""),
+              ],
+            ),
+            const SizedBox(height: 7),
+            const Divider(),
+            const SizedBox(height: 7),
+            detailAttendance("Address", placemark.street ?? ""),
             const SizedBox(height: 28),
             const Expanded(child: SizedBox()),
             Row(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
-import 'package:geolocator/geolocator.dart';
 
 class AttendanceMap extends StatefulWidget {
   AttendanceMap({
@@ -9,12 +8,14 @@ class AttendanceMap extends StatefulWidget {
     required this.oldLocation,
     required this.companyLocation,
     required this.companyRadius,
+    required this.updateUserLocation,
   });
 
   final GeoPoint companyLocation;
   final double companyRadius;
   final MapController mapController;
   GeoPoint oldLocation;
+  final Function updateUserLocation;
 
   @override
   State<AttendanceMap> createState() => _AttendanceMapState();
@@ -29,36 +30,6 @@ class _AttendanceMapState extends State<AttendanceMap> {
       color: Colors.blue,
       strokeWidth: 0.3,
     ));
-  }
-
-  void updateUserLocation() async {
-    Position position = await Geolocator.getCurrentPosition();
-
-    var userLocation = GeoPoint(
-      latitude: position.latitude,
-      longitude: position.longitude,
-    );
-
-    await widget.mapController.changeLocationMarker(
-      oldLocation: widget.oldLocation,
-      newLocation: userLocation,
-      iconAnchor: IconAnchor(
-        anchor: Anchor.top,
-      ),
-      markerIcon: const MarkerIcon(
-        icon: Icon(
-          Icons.location_pin,
-          color: Colors.red,
-          size: 48,
-        ),
-      ),
-    );
-
-    await widget.mapController.goToLocation(userLocation);
-
-    setState(() {
-      widget.oldLocation = userLocation;
-    });
   }
 
   @override
@@ -110,7 +81,7 @@ class _AttendanceMapState extends State<AttendanceMap> {
           onMapIsReady: (isReady) async {
             if (isReady) {
               drawCompanyLocation();
-              updateUserLocation();
+              widget.updateUserLocation();
             }
           },
         ),
@@ -119,7 +90,7 @@ class _AttendanceMapState extends State<AttendanceMap> {
           top: 1,
           child: IconButton(
             onPressed: () {
-              updateUserLocation();
+              widget.updateUserLocation();
             },
             icon: const Icon(Icons.refresh),
           ),

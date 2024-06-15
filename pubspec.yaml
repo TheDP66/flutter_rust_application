@@ -7,6 +7,7 @@ environment:
   sdk: ">=3.2.0 <4.0.0"
 
 dependencies:
+  app_links: ^6.0.2
   bloc: ^8.1.2 # state management
   cached_network_image: ^3.3.1 # cached image
   connectivity_plus: ^2.3.8 # check network
@@ -25,6 +26,7 @@ dependencies:
   flutter_dotenv: ^5.1.0 # .env
   flutter_local_notifications: ^16.3.2 # notification
   flutter_osm_plugin: ^0.70.4
+  geocoding: ^3.0.0
   geolocator: ^11.0.0
   get: ^4.6.6 # dependency injection
   get_it: ^7.6.7
