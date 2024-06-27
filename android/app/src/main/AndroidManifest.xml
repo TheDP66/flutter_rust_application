@@ -28,7 +28,6 @@
 
     <!-- Permissions option fo the `foreground` group -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" />
 
     <!-- Permissions opetion for the `security` group -->
     <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
@@ -95,11 +94,6 @@
                 <!-- <data android:scheme="sample" /> -->
             </intent-filter>
         </activity>
-
-        <service
-            android:name="id.flutter.flutter_background_service.BackgroundService"
-            android:foregroundServiceType="connectedDevice"
-        />
 
         <receiver
             android:name=".BootReceiver"           

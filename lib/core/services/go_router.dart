@@ -2,6 +2,7 @@ import 'package:InOut/core/widgets/scaffold_with_navbar.dart';
 import 'package:InOut/presentation/pages/account_screen/account_screen.dart';
 import 'package:InOut/presentation/pages/attendance_screen/attendance_screen.dart';
 import 'package:InOut/presentation/pages/dashboard_screen/dashboard_screen.dart';
+import 'package:InOut/presentation/pages/datagrid_screen/datagrid_screen.dart';
 import 'package:InOut/presentation/pages/explore_screen/explore_screen.dart';
 import 'package:InOut/presentation/pages/login_screen/login_screen.dart';
 import 'package:InOut/presentation/pages/offline_package_screen/offline_package_screen.dart';
@@ -16,7 +17,7 @@ final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 
 final GoRouter goRouter = GoRouter(
   navigatorKey: rootNavigatorKey,
-  initialLocation: "/splash",
+  initialLocation: "/dashboard",
   routes: _routes,
 );
 
@@ -62,6 +63,14 @@ final _routes = <RouteBase>[
           GoRoute(
             path: "/explore",
             builder: (context, state) => const ExploreScreen(),
+          ),
+        ],
+      ),
+      StatefulShellBranch(
+        routes: [
+          GoRoute(
+            path: "/datagrid",
+            builder: (context, state) => const DatagridScreen(),
           ),
         ],
       ),

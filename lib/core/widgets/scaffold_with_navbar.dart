@@ -69,6 +69,8 @@ class _ScaffoldWithNavbarState extends State<ScaffoldWithNavbar> {
         enableFeedback: true,
         showSelectedLabels: false,
         showUnselectedLabels: false,
+        selectedItemColor: Colors.blueAccent,
+        unselectedItemColor: Colors.blueAccent,
         onTap: (index) => {
           widget.navigationShell.goBranch(
             index,
@@ -85,6 +87,11 @@ class _ScaffoldWithNavbarState extends State<ScaffoldWithNavbar> {
             icon: Icon(Icons.dashboard_outlined),
             activeIcon: Icon(Icons.dashboard),
             label: "Explore",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.table_chart_outlined),
+            activeIcon: Icon(Icons.table_chart),
+            label: "Data Grid",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_outline),

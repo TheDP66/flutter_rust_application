@@ -17,7 +17,8 @@ dependencies:
   dio: ^5.4.0 # api management
   dio_cookie_manager: ^3.1.1
   equatable: ^2.0.5 # json converter
-  file_picker: ^6.1.1
+  excel: ^4.0.2
+  file_picker: ^8.0.5
   fl_chart: ^0.66.2 # chart
   flutter:
     sdk: flutter
@@ -46,8 +47,10 @@ dependencies:
   qr_flutter: ^4.1.0
   rxdart: ^0.27.7 # stream handler (notification)
   shared_preferences: ^2.2.2 # local storage
+  syncfusion_flutter_datagrid: ^24.2.9
   syncfusion_flutter_signaturepad: ^24.2.9
   url_launcher: ^6.2.5
+  win32: ^5.5.1
 
 dev_dependencies:
   build_runner: ^2.4.8

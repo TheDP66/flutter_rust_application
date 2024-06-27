@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:InOut/core/hive/barang.dart';
-import 'package:InOut/core/services/background_service.dart';
 import 'package:InOut/core/services/dio_provider.dart';
 import 'package:InOut/core/services/path_provider.dart';
 import 'package:InOut/data/datasources/remote/auth_remote_data_source.dart';
@@ -48,7 +47,7 @@ setup() async {
     await dotenv.load(fileName: ".env");
 
     // flutter_background_service
-    await backgroundService();
+    // await backgroundService();
 
     // path_provider
     await registerPathProvider();

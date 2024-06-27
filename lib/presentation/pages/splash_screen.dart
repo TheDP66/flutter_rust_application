@@ -33,7 +33,10 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void _authNavigate() {
-    (token == null) ? context.go("/login") : context.go("/dashboard");
+    // TODO : comment
+    // (token == null) ? context.go("/login") : context.go("/dashboard");
+
+    context.go("/dashboard");
   }
 
   @override
